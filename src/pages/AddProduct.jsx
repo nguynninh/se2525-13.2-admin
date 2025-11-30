@@ -50,6 +50,7 @@ const AddProduct = () => {
             + Add Product
           </button>
         </div>
+
         <h2 className="text-xl font-bold mb-4">Add New Product</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4">
