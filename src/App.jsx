@@ -9,6 +9,7 @@ import AddProduct from './pages/AddProduct';
 import AddCategory from './pages/AddCategory';
 import Delivery from './pages/Delivery';
 import Notifications from './pages/Notification';
+import Settings from './pages/Settings';
 
 const AppContent = () => {
   const location = useLocation();
@@ -25,6 +26,8 @@ const AppContent = () => {
     title = 'Add Category';
   } else if (location.pathname === '/notifications') {
     title = 'Notifications';
+  } else if (location.pathname === '/settings') {
+    title = 'Settings';
   }
 
   const showDatePicker = location.pathname === '/';
@@ -43,6 +46,7 @@ const AppContent = () => {
           <Route path="/add-category" element={<AddCategory />} />
           <Route path="/delivery" element={<Delivery />} />
           <Route path="/notifications" element={<Notifications />} />
+          <Route path="/settings" element={<Settings />} />
           </Routes>
         </main>
       </div>
