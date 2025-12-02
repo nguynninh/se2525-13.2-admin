@@ -6,9 +6,11 @@ const Sidebar = () => {
     { icon: 'dashboard-grid', label: 'Dashboard', path: '/' },
     { icon: '/icons/Buy-1.png', label: 'Product', path: '/product' },
     { icon: '/icons/Ticket.png', label: 'Delivery', path: '/delivery' },
+    { icon: '/icons/sale.png', label: 'Discounts', path: '/discounts' },
     { icon: '/icons/message.png', label: 'Chat', path: '/chat', badge: 49 },
     { icon: '/icons/Notification.png', label: 'Notification', path: '/notifications' },
     { icon: '/icons/settings.jpg', label: 'Settings', path: '/settings' },
+    { icon: '/icons/signout.png', label: 'Sign out', path: '/logout' },
   ];
 
   return (
