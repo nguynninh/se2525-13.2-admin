@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 const Settings = () => {
   const [profile, setProfile] = useState({
     name: "Store Admin",
     email: "admin@store.com",
     phone: "+1 202 555 0134",
+    avatar:
+      "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&h=120&q=80",
   });
 
   const [preferences, setPreferences] = useState({
@@ -32,6 +34,8 @@ const Settings = () => {
     setNotifications((prev) => ({ ...prev, [field]: !prev[field] }));
   };
 
+  const fileInputRef = useRef(null);
+
   const saveAll = () => {
     alert("Settings saved (demo).");
   };
@@ -54,42 +58,67 @@ const Settings = () => {
         {/* Profile */}
         <div className="lg:col-span-2 rounded-xl bg-white border border-gray-200 p-4 shadow-sm space-y-4">
           <h2 className="text-base font-semibold text-gray-900">Profile</h2>
-          <div className="grid gap-3 md:grid-cols-2">
-            <div>
-              <label className="block text-sm font-medium text-gray-800">Full name</label>
+          <div className="flex flex-col md:flex-row md:items-start gap-4">
+            <div className="flex flex-col items-center gap-3">
+              <img src={profile.avatar} alt="Avatar" className="h-20 w-20 rounded-full object-cover border border-gray-200" />
               <input
-                type="text"
-                value={profile.name}
-                onChange={(e) => handleProfileChange("name", e.target.value)}
-                className="mt-2 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-400"
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (file) {
+                    const url = URL.createObjectURL(file);
+                    handleProfileChange("avatar", url);
+                  }
+                }}
               />
+              <button
+                type="button"
+                onClick={() => fileInputRef.current?.click()}
+                className="inline-flex items-center justify-center rounded-lg border border-gray-300 bg-white px-3 py-1 text-sm font-semibold text-gray-700 shadow-sm transition hover:bg-gray-50"
+              >
+                Change avatar
+              </button>
             </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-800">Email</label>
-              <input
-                type="email"
-                value={profile.email}
-                onChange={(e) => handleProfileChange("email", e.target.value)}
-                className="mt-2 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-400"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-800">Phone</label>
-              <input
-                type="tel"
-                value={profile.phone}
-                onChange={(e) => handleProfileChange("phone", e.target.value)}
-                className="mt-2 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-400"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-800">Password</label>
-              <input
-                type="password"
-                placeholder="••••••••"
-                className="mt-2 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-400"
-              />
-              <p className="mt-1 text-xs text-gray-500">Leave blank to keep current password.</p>
+            <div className="grid gap-3 md:grid-cols-2 flex-1">
+              <div>
+                <label className="block text-sm font-medium text-gray-800">Full name</label>
+                <input
+                  type="text"
+                  value={profile.name}
+                  onChange={(e) => handleProfileChange("name", e.target.value)}
+                  className="mt-2 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-400"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-800">Email</label>
+                <input
+                  type="email"
+                  value={profile.email}
+                  onChange={(e) => handleProfileChange("email", e.target.value)}
+                  className="mt-2 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-400"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-800">Phone</label>
+                <input
+                  type="tel"
+                  value={profile.phone}
+                  onChange={(e) => handleProfileChange("phone", e.target.value)}
+                  className="mt-2 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-400"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-800">Password</label>
+                <input
+                  type="password"
+                  placeholder="••••••••"
+                  className="mt-2 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-400"
+                />
+                <p className="mt-1 text-xs text-gray-500">Leave blank to keep current password.</p>
+              </div>
             </div>
           </div>
         </div>
