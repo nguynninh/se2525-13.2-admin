@@ -70,7 +70,6 @@ const Delivery = () => {
   return (
     <div className="p-4 lg:p-5 space-y-4 bg-content-bg min-h-screen">
       <div className="space-y-1">
-        <h1 className="text-2xl font-bold text-gray-900">Orders</h1>
         <p className="text-sm text-gray-600">Total orders in store: {orders.length}</p>
       </div>
 

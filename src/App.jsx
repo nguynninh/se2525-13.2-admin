@@ -8,6 +8,7 @@ import Product from './pages/Product';
 import AddProduct from './pages/AddProduct';
 import AddCategory from './pages/AddCategory';
 import Delivery from './pages/Delivery';
+import Notifications from './pages/Notification';
 
 const AppContent = () => {
   const location = useLocation();
@@ -22,6 +23,8 @@ const AppContent = () => {
     title = 'Delivery';
   } else if (location.pathname === '/add-category') {
     title = 'Add Category';
+  } else if (location.pathname === '/notifications') {
+    title = 'Notifications';
   }
 
   const showDatePicker = location.pathname === '/';
@@ -35,10 +38,11 @@ const AppContent = () => {
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/chat" element={<Chat />} />
-            <Route path="/product" element={<Product />} />
-            <Route path="/add-product" element={<AddProduct />} />
-            <Route path="/add-category" element={<AddCategory />} />
-            <Route path="/delivery" element={<Delivery />} />
+          <Route path="/product" element={<Product />} />
+          <Route path="/add-product" element={<AddProduct />} />
+          <Route path="/add-category" element={<AddCategory />} />
+          <Route path="/delivery" element={<Delivery />} />
+          <Route path="/notifications" element={<Notifications />} />
           </Routes>
         </main>
       </div>
