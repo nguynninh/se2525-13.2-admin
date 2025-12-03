@@ -37,20 +37,20 @@ const Sidebar = ({ active = 'overview', onSelect }) => {
   ];
 
   return (
-    <div className="w-72 bg-slate-950 border-r border-slate-900 min-h-screen p-6 flex flex-col justify-between">
+    <div className="w-72 bg-gray-950 border-r border-gray-900 min-h-screen p-6 flex flex-col justify-between">
       <div className="space-y-6">
         <div className="flex items-center gap-3">
-          <div className="w-11 h-11 bg-gradient-to-br from-cyan-500 to-emerald-400 rounded-2xl flex items-center justify-center text-slate-950 font-bold shadow-lg shadow-cyan-500/30">
+          <div className="w-11 h-11 bg-gradient-to-br from-gray-400 to-gray-600 rounded-2xl flex items-center justify-center text-gray-950 font-bold shadow-lg shadow-gray-700/40">
             AD
           </div>
           <div>
-            <p className="text-sm text-slate-300">Marketplace</p>
-            <p className="text-lg font-semibold text-slate-50">Super Admin</p>
+            <p className="text-sm text-gray-300">Marketplace</p>
+            <p className="text-lg font-semibold text-gray-50">Super Admin</p>
           </div>
         </div>
 
         <div className="space-y-1">
-          <p className="text-xs text-slate-500 px-1">Primary navigation</p>
+          <p className="text-xs text-gray-500 px-1">Primary navigation</p>
           <nav className="space-y-2">
             {primary.map((item, i) => (
               <button
@@ -58,8 +58,8 @@ const Sidebar = ({ active = 'overview', onSelect }) => {
                 onClick={() => onSelect?.(item.key)}
                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all border ${
                   active === item.key
-                    ? 'bg-slate-900/80 border-cyan-400/60 text-slate-50 shadow-lg shadow-cyan-500/10'
-                    : 'bg-transparent border-slate-900 text-slate-300 hover:border-slate-700 hover:bg-slate-900/60'
+                    ? 'bg-gray-900/80 border-gray-500/60 text-gray-50 shadow-lg shadow-gray-700/20'
+                    : 'bg-transparent border-gray-900 text-gray-300 hover:border-gray-700 hover:bg-gray-900/60'
                 }`}
               >
                 <item.icon className="w-5 h-5" />
@@ -70,12 +70,12 @@ const Sidebar = ({ active = 'overview', onSelect }) => {
         </div>
 
         <div className="space-y-1">
-          <p className="text-xs text-slate-500 px-1">Secondary actions</p>
+          <p className="text-xs text-gray-500 px-1">Secondary actions</p>
           <nav className="space-y-1.5">
             {secondary.map((item, i) => (
               <button
                 key={i}
-                className="w-full flex items-center gap-3 px-4 py-2.5 rounded-lg border border-slate-900 text-slate-400 hover:text-slate-50 hover:border-slate-700 hover:bg-slate-900/60 transition-colors"
+                className="w-full flex items-center gap-3 px-4 py-2.5 rounded-lg border border-gray-900 text-gray-400 hover:text-gray-50 hover:border-gray-700 hover:bg-gray-900/60 transition-colors"
               >
                 <item.icon className="w-4 h-4" />
                 <span className="text-sm flex-1 text-left">{item.label}</span>
@@ -85,7 +85,7 @@ const Sidebar = ({ active = 'overview', onSelect }) => {
         </div>
       </div>
 
-      <button className="flex items-center gap-3 px-4 py-3 text-slate-300 hover:text-slate-50 hover:border-slate-700 rounded-xl border border-slate-900 bg-slate-900/60 transition-colors">
+      <button className="flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-gray-50 hover:border-gray-700 rounded-xl border border-gray-900 bg-gray-900/60 transition-colors">
         <LogOut className="w-5 h-5" />
         <span className="text-sm font-medium">Sign out</span>
       </button>
