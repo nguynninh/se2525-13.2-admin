@@ -3,27 +3,33 @@ import Sidebar from './components/Sidebar';
 import Header from './components/Header';
 import {
   Activity,
+  Bell,
   Ban,
   ClipboardList,
   CreditCard,
+  FileWarning,
+  Globe2,
+  Package,
   ShieldCheck,
   ShoppingBag,
+  Truck,
   UserCog,
   Users,
+  Wallet,
 } from 'lucide-react';
 
 const OverviewPage = () => {
   const overviewCards = [
-    { label: 'Total users', value: '2.3M', change: '+1.2K today', icon: Users, accent: 'from-gray-500/25 to-gray-500/0' },
-    { label: 'Active sellers', value: '18,420', change: '+128 new', icon: ShoppingBag, accent: 'from-gray-500/25 to-gray-500/0' },
-    { label: 'Orders (24h)', value: '182K', change: 'up 8.4% WoW', icon: ClipboardList, accent: 'from-gray-500/25 to-gray-500/0' },
-    { label: 'Payments processed', value: '$1.2M', change: '98.6% success', icon: CreditCard, accent: 'from-gray-500/25 to-gray-500/0' },
+    { label: 'Total users', value: '2.3M', change: '+1.2K today', icon: Users, accent: 'from-gray-200 to-gray-100' },
+    { label: 'Active sellers', value: '18,420', change: '+128 new', icon: ShoppingBag, accent: 'from-gray-200 to-gray-100' },
+    { label: 'Orders (24h)', value: '182K', change: 'up 8.4% WoW', icon: ClipboardList, accent: 'from-gray-200 to-gray-100' },
+    { label: 'Payments processed', value: '$1.2M', change: '98.6% success', icon: CreditCard, accent: 'from-gray-200 to-gray-100' },
   ];
 
   const healthMeters = [
-    { label: 'Live version', value: '3.12.4', detail: 'Order + Payment', color: 'text-gray-200' },
-    { label: 'Cluster status', value: '5 regions', detail: 'SG / HN / Tokyo', color: 'text-gray-200' },
-    { label: 'Open tickets', value: '19', detail: '5 P1, 14 P2', color: 'text-gray-200' },
+    { label: 'Live version', value: '3.12.4', detail: 'Order + Payment', color: 'text-gray-700' },
+    { label: 'Cluster status', value: '5 regions', detail: 'SG / HN / Tokyo', color: 'text-gray-700' },
+    { label: 'Open tickets', value: '19', detail: '5 P1, 14 P2', color: 'text-gray-700' },
   ];
 
   const systemSignals = [
@@ -40,12 +46,12 @@ const OverviewPage = () => {
 
   return (
     <div className="space-y-6">
-      <section className="bg-gray-900/70 border border-gray-800 rounded-2xl p-6 shadow-xl shadow-gray-950/30">
+      <section className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           {healthMeters.map((item, idx) => (
             <div
               key={idx}
-              className="rounded-xl border border-gray-800 bg-gray-900/80 p-4 shadow-inner shadow-gray-950/30"
+              className="rounded-xl border border-gray-200 bg-gray-50 p-4"
             >
               <p className="text-xs text-gray-500">{item.label}</p>
               <div className={`text-xl font-semibold mt-2 ${item.color}`}>{item.value}</div>
@@ -59,29 +65,29 @@ const OverviewPage = () => {
         {overviewCards.map((card, idx) => (
           <div
             key={idx}
-            className="rounded-2xl border border-gray-800 bg-gray-900/60 p-5 shadow-lg shadow-gray-950/30"
+            className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm"
           >
             <div className="flex items-start justify-between">
-              <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${card.accent} border border-gray-800/70 inline-flex items-center justify-center`}>
-                <card.icon className="w-5 h-5 text-gray-100" />
+              <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${card.accent} border border-gray-300 inline-flex items-center justify-center`}>
+                <card.icon className="w-5 h-5 text-gray-500" />
               </div>
-              <span className="text-[11px] text-gray-300">{card.change}</span>
+              <span className="text-[11px] text-gray-500">{card.change}</span>
             </div>
-            <p className="text-sm text-gray-400 mt-4">{card.label}</p>
+            <p className="text-sm text-gray-600 mt-4">{card.label}</p>
             <div className="text-2xl font-bold mt-1">{card.value}</div>
           </div>
         ))}
       </section>
 
       <section className="grid grid-cols-1 xl:grid-cols-[1.2fr_1fr] gap-4">
-        <div className="rounded-2xl border border-gray-800 bg-gray-900/70 p-5 shadow-lg shadow-gray-950/30">
+        <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
           <div className="flex items-center gap-2 mb-4">
-            <Activity className="w-4 h-4 text-gray-200" />
+            <Activity className="w-4 h-4 text-gray-600" />
             <p className="text-sm font-semibold">System signals</p>
           </div>
           <div className="space-y-3">
             {systemSignals.map((signal, idx) => (
-              <div key={idx} className="flex items-center justify-between rounded-lg border border-gray-800 bg-gray-900/70 px-4 py-3">
+              <div key={idx} className="flex items-center justify-between rounded-lg border border-gray-200 bg-gray-50 px-4 py-3">
                 <div className="flex items-center gap-3">
                   <span
                     className={`w-2.5 h-2.5 rounded-full ${
@@ -99,14 +105,14 @@ const OverviewPage = () => {
           </div>
         </div>
 
-        <div className="rounded-2xl border border-gray-800 bg-gray-900/70 p-5 shadow-lg shadow-gray-950/30 space-y-4">
+        <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm space-y-4">
           <div className="flex items-center gap-2">
-            <ShieldCheck className="w-4 h-4 text-gray-200" />
+            <ShieldCheck className="w-4 h-4 text-gray-600" />
             <p className="text-sm font-semibold">Schedules & priorities</p>
           </div>
           <div className="space-y-3">
             {schedules.map((item, idx) => (
-              <div key={idx} className="rounded-xl border border-gray-800 bg-gray-900/60 px-4 py-3">
+              <div key={idx} className="rounded-xl border border-gray-200 bg-gray-50 px-4 py-3">
                 <div className="flex items-center justify-between">
                   <p className="text-sm font-semibold">{item.title}</p>
                   <span className="text-[11px] text-gray-500">{item.window}</span>
@@ -123,10 +129,10 @@ const OverviewPage = () => {
 
 const UsersRolesPage = () => {
   const userStats = [
-    { label: 'Total users', value: '2.3M', change: '+1.2K today', icon: Users, tone: 'from-gray-500/15 to-gray-500/0', border: 'border-gray-500/30' },
-    { label: 'Active last 24h', value: '892K', change: '+4.2% WoW', icon: Activity, tone: 'from-gray-500/15 to-gray-500/0', border: 'border-gray-500/30' },
-    { label: 'Admin accounts', value: '312', change: '8 pending invites', icon: UserCog, tone: 'from-gray-500/15 to-gray-500/0', border: 'border-gray-500/30' },
-    { label: 'Suspended', value: '1,240', change: '72 reviewed today', icon: Ban, tone: 'from-gray-500/15 to-gray-500/0', border: 'border-gray-500/30' },
+    { label: 'Total users', value: '2.3M', change: '+1.2K today', icon: Users, tone: 'from-gray-200 to-gray-100', border: 'border-gray-300' },
+    { label: 'Active last 24h', value: '892K', change: '+4.2% WoW', icon: Activity, tone: 'from-gray-200 to-gray-100', border: 'border-gray-300' },
+    { label: 'Admin accounts', value: '312', change: '8 pending invites', icon: UserCog, tone: 'from-gray-200 to-gray-100', border: 'border-gray-300' },
+    { label: 'Suspended', value: '1,240', change: '72 reviewed today', icon: Ban, tone: 'from-gray-200 to-gray-100', border: 'border-gray-300' },
   ];
 
   const roleBreakdown = [
@@ -157,39 +163,33 @@ const UsersRolesPage = () => {
 
   return (
     <div className="space-y-4">
-      <div>
-        <p className="text-xs tracking-[0.32em] text-gray-300/80 uppercase">Users & Roles</p>
-        <h2 className="text-2xl font-bold mt-1">Access oversight</h2>
-        <p className="text-sm text-gray-400">Monitor account health, permissions, and approvals.</p>
-      </div>
-
       <section className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
         {userStats.map((card, idx) => (
           <div
             key={idx}
-            className="rounded-2xl border border-gray-800 bg-gray-900/60 p-5 shadow-lg shadow-gray-950/30"
+            className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm"
           >
             <div className="flex items-start justify-between">
               <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${card.tone} border ${card.border} inline-flex items-center justify-center`}>
-                <card.icon className="w-5 h-5 text-gray-100" />
+                <card.icon className="w-5 h-5 text-gray-500" />
               </div>
-              <span className="text-[11px] text-gray-300">{card.change}</span>
+              <span className="text-[11px] text-gray-500">{card.change}</span>
             </div>
-            <p className="text-sm text-gray-400 mt-4">{card.label}</p>
+            <p className="text-sm text-gray-600 mt-4">{card.label}</p>
             <div className="text-2xl font-bold mt-1">{card.value}</div>
           </div>
         ))}
       </section>
 
       <section className="grid grid-cols-1 xl:grid-cols-[1.2fr_1fr] gap-4">
-        <div className="rounded-2xl border border-gray-800 bg-gray-900/70 p-5 shadow-lg shadow-gray-950/30 space-y-3">
+        <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm space-y-3">
           <div className="flex items-center gap-2">
-            <ShieldCheck className="w-4 h-4 text-gray-200" />
+            <ShieldCheck className="w-4 h-4 text-gray-600" />
             <p className="text-sm font-semibold">Role breakdown</p>
           </div>
           <div className="space-y-3">
             {roleBreakdown.map((item, idx) => (
-              <div key={idx} className="flex items-center justify-between rounded-xl border border-gray-800 bg-gray-900/70 px-4 py-3">
+              <div key={idx} className="flex items-center justify-between rounded-xl border border-gray-200 bg-gray-50 px-4 py-3">
                 <div>
                   <p className="text-sm font-semibold">{item.role}</p>
                   <p className="text-xs text-gray-500">{item.trend}</p>
@@ -200,14 +200,14 @@ const UsersRolesPage = () => {
           </div>
         </div>
 
-        <div className="rounded-2xl border border-gray-800 bg-gray-900/70 p-5 shadow-lg shadow-gray-950/30 space-y-3">
+        <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm space-y-3">
           <div className="flex items-center gap-2">
-            <ClipboardList className="w-4 h-4 text-gray-200" />
+            <ClipboardList className="w-4 h-4 text-gray-600" />
             <p className="text-sm font-semibold">Pending approvals</p>
           </div>
           <div className="space-y-3">
             {approvals.map((item, idx) => (
-              <div key={idx} className="rounded-xl border border-gray-800 bg-gray-900/60 px-4 py-3">
+              <div key={idx} className="rounded-xl border border-gray-200 bg-gray-50 px-4 py-3">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm font-semibold">{item.name}</p>
@@ -223,14 +223,14 @@ const UsersRolesPage = () => {
       </section>
 
       <section className="grid grid-cols-1 xl:grid-cols-[1fr_1fr] gap-4">
-        <div className="rounded-2xl border border-gray-800 bg-gray-900/70 p-5 shadow-lg shadow-gray-950/30 space-y-3">
+        <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm space-y-3">
           <div className="flex items-center gap-2">
-            <Activity className="w-4 h-4 text-gray-200" />
+            <Activity className="w-4 h-4 text-gray-600" />
             <p className="text-sm font-semibold">Access reviews</p>
           </div>
           <div className="space-y-3">
             {accessReviews.map((item, idx) => (
-              <div key={idx} className="rounded-xl border border-gray-800 bg-gray-900/60 px-4 py-3 flex items-center justify-between">
+              <div key={idx} className="rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 flex items-center justify-between">
                 <div>
                   <p className="text-sm font-semibold">{item.title}</p>
                   <p className="text-xs text-gray-500">{item.window} - Owner: {item.owner}</p>
@@ -241,15 +241,15 @@ const UsersRolesPage = () => {
           </div>
         </div>
 
-        <div className="rounded-2xl border border-gray-800 bg-gray-900/70 p-5 shadow-lg shadow-gray-950/30 space-y-4">
+        <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm space-y-4">
           <p className="text-sm font-semibold">Ops quick actions</p>
           <div className="space-y-2.5">
             {quickActions.map((action, idx) => (
               <button
                 key={idx}
-                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl border border-gray-800 bg-gray-900/60 text-left hover:border-gray-500/60 hover:bg-gray-800/70 transition-colors"
+                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl border border-gray-200 bg-white text-left hover:border-gray-400 hover:bg-gray-50 transition-colors"
               >
-                <action.icon className="w-4 h-4 text-gray-200" />
+                <action.icon className="w-4 h-4 text-gray-600" />
                 <div className="flex-1">
                   <p className="text-sm font-semibold">{action.label}</p>
                   <p className="text-xs text-gray-500">{action.desc}</p>
@@ -265,10 +265,10 @@ const UsersRolesPage = () => {
 
 const SellersShopsPage = () => {
   const sellerStats = [
-    { label: 'Total shops', value: '38,210', change: '+420 this week', icon: ShoppingBag, tone: 'from-gray-500/15 to-gray-500/0', border: 'border-gray-500/30' },
-    { label: 'Pending review', value: '312', change: '64 P1 priority', icon: ClipboardList, tone: 'from-gray-500/15 to-gray-500/0', border: 'border-gray-500/30' },
-    { label: 'KYC verified', value: '34,118', change: '92% verified', icon: ShieldCheck, tone: 'from-gray-500/15 to-gray-500/0', border: 'border-gray-500/30' },
-    { label: 'Suspended', value: '1,204', change: '72 reviewed today', icon: Ban, tone: 'from-gray-500/15 to-gray-500/0', border: 'border-gray-500/30' },
+    { label: 'Total shops', value: '38,210', change: '+420 this week', icon: ShoppingBag, tone: 'from-gray-200 to-gray-100', border: 'border-gray-300' },
+    { label: 'Pending review', value: '312', change: '64 P1 priority', icon: ClipboardList, tone: 'from-gray-200 to-gray-100', border: 'border-gray-300' },
+    { label: 'KYC verified', value: '34,118', change: '92% verified', icon: ShieldCheck, tone: 'from-gray-200 to-gray-100', border: 'border-gray-300' },
+    { label: 'Suspended', value: '1,204', change: '72 reviewed today', icon: Ban, tone: 'from-gray-200 to-gray-100', border: 'border-gray-300' },
   ];
 
   const kycQueue = [
@@ -299,39 +299,33 @@ const SellersShopsPage = () => {
 
   return (
     <div className="space-y-4">
-      <div>
-        <p className="text-xs tracking-[0.32em] text-gray-300/80 uppercase">Sellers & Shops</p>
-        <h2 className="text-2xl font-bold mt-1">Marketplace supply health</h2>
-        <p className="text-sm text-gray-400">Track onboarding, KYC, and operational performance for shops.</p>
-      </div>
-
       <section className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
         {sellerStats.map((card, idx) => (
           <div
             key={idx}
-            className="rounded-2xl border border-gray-800 bg-gray-900/60 p-5 shadow-lg shadow-gray-950/30"
+            className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm"
           >
             <div className="flex items-start justify-between">
               <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${card.tone} border ${card.border} inline-flex items-center justify-center`}>
-                <card.icon className="w-5 h-5 text-gray-100" />
+                <card.icon className="w-5 h-5 text-gray-500" />
               </div>
-              <span className="text-[11px] text-gray-300">{card.change}</span>
+              <span className="text-[11px] text-gray-500">{card.change}</span>
             </div>
-            <p className="text-sm text-gray-400 mt-4">{card.label}</p>
+            <p className="text-sm text-gray-600 mt-4">{card.label}</p>
             <div className="text-2xl font-bold mt-1">{card.value}</div>
           </div>
         ))}
       </section>
 
       <section className="grid grid-cols-1 xl:grid-cols-[1.2fr_1fr] gap-4">
-        <div className="rounded-2xl border border-gray-800 bg-gray-900/70 p-5 shadow-lg shadow-gray-950/30 space-y-3">
+        <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm space-y-3">
           <div className="flex items-center gap-2">
-            <ShieldCheck className="w-4 h-4 text-gray-200" />
+            <ShieldCheck className="w-4 h-4 text-gray-600" />
             <p className="text-sm font-semibold">KYC / approvals</p>
           </div>
           <div className="space-y-3">
             {kycQueue.map((item, idx) => (
-              <div key={idx} className="rounded-xl border border-gray-800 bg-gray-900/70 px-4 py-3 flex items-center justify-between">
+              <div key={idx} className="rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 flex items-center justify-between">
                 <div>
                   <p className="text-sm font-semibold">{item.name}</p>
                   <p className="text-xs text-gray-500">{item.status}</p>
@@ -345,14 +339,14 @@ const SellersShopsPage = () => {
           </div>
         </div>
 
-        <div className="rounded-2xl border border-gray-800 bg-gray-900/70 p-5 shadow-lg shadow-gray-950/30 space-y-3">
+        <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm space-y-3">
           <div className="flex items-center gap-2">
-            <Activity className="w-4 h-4 text-gray-200" />
+            <Activity className="w-4 h-4 text-gray-600" />
             <p className="text-sm font-semibold">Ops signals</p>
           </div>
           <div className="space-y-3">
             {opsSignals.map((signal, idx) => (
-              <div key={idx} className="flex items-center justify-between rounded-xl border border-gray-800 bg-gray-900/60 px-4 py-3">
+              <div key={idx} className="flex items-center justify-between rounded-xl border border-gray-200 bg-gray-50 px-4 py-3">
                 <div>
                   <p className="text-sm font-semibold">{signal.label}</p>
                   <p className="text-xs text-gray-500">{signal.desc}</p>
@@ -365,14 +359,14 @@ const SellersShopsPage = () => {
       </section>
 
       <section className="grid grid-cols-1 xl:grid-cols-[1fr_1fr] gap-4">
-        <div className="rounded-2xl border border-gray-800 bg-gray-900/70 p-5 shadow-lg shadow-gray-950/30 space-y-3">
+        <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm space-y-3">
           <div className="flex items-center gap-2">
-            <Activity className="w-4 h-4 text-gray-200" />
+            <Activity className="w-4 h-4 text-gray-600" />
             <p className="text-sm font-semibold">Regional performance</p>
           </div>
           <div className="space-y-2">
             {regionPerformance.map((row, idx) => (
-              <div key={idx} className="flex items-center justify-between rounded-xl border border-gray-800 bg-gray-900/60 px-4 py-3">
+              <div key={idx} className="flex items-center justify-between rounded-xl border border-gray-200 bg-gray-50 px-4 py-3">
                 <div>
                   <p className="text-sm font-semibold">{row.region}</p>
                   <p className="text-xs text-gray-500">{row.growth}</p>
@@ -383,15 +377,15 @@ const SellersShopsPage = () => {
           </div>
         </div>
 
-        <div className="rounded-2xl border border-gray-800 bg-gray-900/70 p-5 shadow-lg shadow-gray-950/30 space-y-4">
+        <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm space-y-4">
           <p className="text-sm font-semibold">Seller quick actions</p>
           <div className="space-y-2.5">
             {quickActions.map((action, idx) => (
               <button
                 key={idx}
-                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl border border-gray-800 bg-gray-900/60 text-left hover:border-gray-500/60 hover:bg-gray-800/70 transition-colors"
+                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl border border-gray-200 bg-white text-left hover:border-gray-400 hover:bg-gray-50 transition-colors"
               >
-                <action.icon className="w-4 h-4 text-gray-200" />
+                <action.icon className="w-4 h-4 text-gray-600" />
                 <div className="flex-1">
                   <p className="text-sm font-semibold">{action.label}</p>
                   <p className="text-xs text-gray-500">{action.desc}</p>
@@ -405,11 +399,209 @@ const SellersShopsPage = () => {
   );
 };
 
-const PlaceholderPage = ({ title }) => (
-  <div className="rounded-2xl border border-dashed border-gray-800 bg-gray-900/50 p-10 text-center text-gray-400">
-    <p className="text-sm">"{title}" page will be designed next.</p>
-  </div>
-);
+const OrdersPage = () => {
+  const summary = [
+    { label: 'Orders (today)', value: '1,820', change: '+12% vs yesterday', icon: ClipboardList },
+    { label: 'Revenue (today)', value: '$420K', change: '+8.4% vs yesterday', icon: CreditCard },
+    { label: 'Avg. processing time', value: '14m', change: '-2m vs last week', icon: Truck },
+    { label: 'Returns', value: '38', change: '1.9% of orders', icon: Package },
+  ];
+
+  const orders = [
+    { id: '#876364', name: 'T-Shirt Groot Black', price: '$100.00', status: 'Shipped', time: '10:32 AM' },
+    { id: '#876368', name: 'Sepatu Nike', price: '$800.00', status: 'Processing', time: '10:21 AM' },
+    { id: '#876412', name: 'T-Shirt Love Kills', price: '$100.00', status: 'Packaging', time: '09:58 AM' },
+    { id: '#876621', name: 'Tas Selempang Pria', price: '$80.00', status: 'Shipped', time: '09:20 AM' },
+  ];
+
+  const statusBreakdown = [
+    { label: 'Shipped', value: '1,120', note: '62% of daily volume' },
+    { label: 'Processing', value: '540', note: 'Batching pick-pack' },
+    { label: 'Packaging', value: '160', note: 'Awaiting handoff' },
+    { label: 'Returns', value: '38', note: 'Need inspection' },
+  ];
+
+  const statusTone = (status) => {
+    if (status === 'Shipped') return 'bg-green-50 text-green-700 border-green-200';
+    if (status === 'Processing' || status === 'Packaging') return 'bg-amber-50 text-amber-700 border-amber-200';
+    return 'bg-gray-50 text-gray-700 border-gray-200';
+  };
+
+  return (
+    <div className="space-y-6">
+      <section className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+        {summary.map((card, idx) => (
+          <div key={idx} className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+            <div className="flex items-start justify-between">
+              <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-gray-200 to-gray-100 border border-gray-300 inline-flex items-center justify-center">
+                <card.icon className="w-5 h-5 text-gray-600" />
+              </div>
+              <span className="text-[11px] text-gray-500">{card.change}</span>
+            </div>
+            <p className="text-sm text-gray-600 mt-4">{card.label}</p>
+            <div className="text-2xl font-bold mt-1">{card.value}</div>
+          </div>
+        ))}
+      </section>
+
+      <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+        <div className="flex items-center justify-between mb-4">
+          <div>
+            <p className="text-sm font-semibold text-gray-800">Recent orders</p>
+            <p className="text-xs text-gray-500">Latest transactions across fulfillment states.</p>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 rounded-lg border border-gray-200 bg-gray-50 px-2 py-1">
+              {['All', 'Shipped', 'Processing', 'Returns'].map((tag) => (
+                <span key={tag} className="text-xs text-gray-600 px-2 py-1 rounded-md hover:bg-white">
+                  {tag}
+                </span>
+              ))}
+            </div>
+            <button className="text-xs text-gray-600 px-3 py-2 rounded-lg border border-gray-200 bg-gray-50 hover:border-gray-300">
+              Export CSV
+            </button>
+          </div>
+        </div>
+        <div className="overflow-hidden rounded-xl border border-gray-200">
+          <div className="grid grid-cols-5 bg-gray-50 px-4 py-3 text-xs font-semibold text-gray-600">
+            <span>Order ID</span>
+            <span className="col-span-2">Product</span>
+            <span>Price</span>
+            <span className="text-right">Status</span>
+          </div>
+          <div>
+            {orders.map((row, idx) => (
+              <div key={idx} className="grid grid-cols-5 items-center px-4 py-3 border-t border-gray-100 text-sm text-gray-700">
+                <span className="font-medium text-gray-800">{row.id}</span>
+                <span className="col-span-2">{row.name}</span>
+                <span>{row.price}</span>
+                <div className="flex justify-end">
+                  <span className={`text-xs px-2.5 py-1 rounded-full border ${statusTone(row.status)}`}>{row.status}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        {statusBreakdown.map((item, idx) => (
+          <div key={idx} className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
+            <p className="text-sm font-semibold text-gray-800">{item.label}</p>
+            <div className="text-2xl font-bold mt-1 text-gray-800">{item.value}</div>
+            <p className="text-xs text-gray-500 mt-1">{item.note}</p>
+          </div>
+        ))}
+      </section>
+    </div>
+  );
+};
+
+const PaymentsPage = () => {
+  const stats = [
+    { label: "Processed today", value: "$1.2M", change: "+8.4% vs yesterday", icon: CreditCard },
+    { label: "Success rate", value: "98.6%", change: "+0.4% vs last week", icon: ShieldCheck },
+    { label: "Settlement pending", value: "$320K", change: "T+1 review", icon: Wallet },
+    { label: "Chargebacks", value: "12", change: "0.4% of txns", icon: FileWarning },
+  ];
+
+  const gateways = [
+    { name: "Stripe", status: "Active", uptime: "99.98%", volume: "$820K" },
+    { name: "PayPal", status: "Degraded", uptime: "99.2%", volume: "$260K" },
+    { name: "Local bank", status: "Active", uptime: "99.9%", volume: "$140K" },
+  ];
+
+  return (
+    <div className="space-y-6">
+      <section className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+        {stats.map((card, idx) => (
+          <div key={idx} className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+            <div className="flex items-start justify-between">
+              <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-gray-200 to-gray-100 border border-gray-300 inline-flex items-center justify-center">
+                <card.icon className="w-5 h-5 text-gray-600" />
+              </div>
+              <span className="text-[11px] text-gray-500">{card.change}</span>
+            </div>
+            <p className="text-sm text-gray-600 mt-4">{card.label}</p>
+            <div className="text-2xl font-bold mt-1">{card.value}</div>
+          </div>
+        ))}
+      </section>
+
+      <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+        <div className="flex items-center justify-between mb-4">
+          <div>
+            <p className="text-sm font-semibold text-gray-800">Cong thanh toan</p>
+            <p className="text-xs text-gray-500">Trang thai, uptime va san luong theo cong.</p>
+          </div>
+        </div>
+        <div className="overflow-hidden rounded-xl border border-gray-200">
+          <div className="grid grid-cols-4 bg-gray-50 px-4 py-3 text-xs font-semibold text-gray-600">
+            <span>Cong</span>
+            <span>Trang thai</span>
+            <span>Uptime</span>
+            <span className="text-right">Volume hom nay</span>
+          </div>
+          {gateways.map((g, idx) => (
+            <div key={idx} className="grid grid-cols-4 items-center px-4 py-3 border-t border-gray-100 text-sm text-gray-700">
+              <span className="font-medium text-gray-800">{g.name}</span>
+              <span className="text-xs px-2 py-1 rounded-full border border-gray-200 bg-gray-50">{g.status}</span>
+              <span>{g.uptime}</span>
+              <span className="text-right">{g.volume}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+    </div>
+  );
+};
+
+const SettingsPage = () => {
+  const basics = [
+    { title: 'Branding', desc: 'Logo, colors, domain, and header text.', icon: Users },
+    { title: 'Localization', desc: 'Timezone, currency, and locale defaults.', icon: Globe2 },
+    { title: 'Notifications', desc: 'Email, push, webhook templates and rules.', icon: Bell },
+  ];
+
+  const security = [
+    { title: 'Roles & permissions', desc: 'Granular scopes for ops, finance, support.', icon: ShieldCheck },
+    { title: 'Authentication', desc: 'MFA, SSO providers, session policies.', icon: CreditCard },
+    { title: 'Audit log', desc: 'Track admin actions and sensitive changes.', icon: ClipboardList },
+  ];
+
+  return (
+    <div className="space-y-6">
+      <section className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {basics.map((item, idx) => (
+          <div key={idx} className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm flex items-start gap-3">
+            <div className="w-10 h-10 rounded-xl bg-gray-100 border border-gray-200 inline-flex items-center justify-center">
+              <item.icon className="w-5 h-5 text-gray-600" />
+            </div>
+            <div className="space-y-1">
+              <p className="text-sm font-semibold text-gray-800">{item.title}</p>
+              <p className="text-xs text-gray-600">{item.desc}</p>
+            </div>
+          </div>
+        ))}
+      </section>
+
+      <section className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {security.map((item, idx) => (
+          <div key={idx} className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm flex items-start gap-3">
+            <div className="w-10 h-10 rounded-xl bg-gray-100 border border-gray-200 inline-flex items-center justify-center">
+              <item.icon className="w-5 h-5 text-gray-600" />
+            </div>
+            <div className="space-y-1">
+              <p className="text-sm font-semibold text-gray-800">{item.title}</p>
+              <p className="text-xs text-gray-600">{item.desc}</p>
+            </div>
+          </div>
+        ))}
+      </section>
+    </div>
+  );
+};
 
 const App = () => {
   const [activePage, setActivePage] = useState('overview');
@@ -423,24 +615,22 @@ const App = () => {
       case 'sellers':
         return <SellersShopsPage />;
       case 'orders':
-        return <PlaceholderPage title="Orders" />;
+        return <OrdersPage />;
       case 'payments':
-        return <PlaceholderPage title="Payments" />;
-      case 'reports':
-        return <PlaceholderPage title="Reports" />;
+        return <PaymentsPage />;
       case 'settings':
-        return <PlaceholderPage title="Settings" />;
+        return <SettingsPage />;
       default:
         return <OverviewPage />;
     }
   };
 
   return (
-    <div className="flex min-h-screen bg-gray-950 text-gray-50">
+    <div className="flex min-h-screen bg-gray-100 text-gray-800">
       <Sidebar active={activePage} onSelect={setActivePage} />
       <div className="flex-1 flex flex-col overflow-hidden">
         <Header />
-        <main className="flex-1 overflow-x-hidden overflow-y-auto px-6 py-8 lg:px-10 bg-gray-900">
+        <main className="flex-1 overflow-x-hidden overflow-y-auto px-6 py-8 lg:px-10 bg-gray-100">
           <div className="w-full max-w-7xl mx-auto space-y-8">{renderPage()}</div>
         </main>
       </div>
@@ -449,3 +639,5 @@ const App = () => {
 };
 
 export default App;
+
+
