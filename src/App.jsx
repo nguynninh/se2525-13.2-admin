@@ -7,11 +7,21 @@ import {
   Ban,
   ClipboardList,
   CreditCard,
+  BarChart3,
+  FileText,
   FileWarning,
+  Headset,
+  Image as ImageIcon,
+  Lock,
+  LogOut,
   Globe2,
   Package,
+  Percent,
   ShieldCheck,
+  Settings,
   ShoppingBag,
+  SlidersHorizontal,
+  Tag,
   Truck,
   UserCog,
   Users,
@@ -271,10 +281,16 @@ const SellersShopsPage = () => {
     { label: 'Suspended', value: '1,204', change: '72 reviewed today', icon: Ban, tone: 'from-gray-200 to-gray-100', border: 'border-gray-300' },
   ];
 
-  const kycQueue = [
+  const approvalsQueue = [
     { name: 'Shop Alpha', status: 'Waiting docs', age: '12m', owner: 'Ops' },
     { name: 'Tokyo Mart', status: 'Manual review', age: '22m', owner: 'Risk' },
     { name: 'Eco Store', status: 'Flagged address', age: '35m', owner: 'Ops' },
+  ];
+
+  const activeShops = [
+    { name: 'Urban Style', reason: 'Policy violation', age: '5m', owner: 'Ops' },
+    { name: 'Eco Market', reason: 'High return rate', age: '18m', owner: 'Risk' },
+    { name: 'Tech Hub', reason: 'Fraud suspicion', age: '25m', owner: 'Fraud' },
   ];
 
   const regionPerformance = [
@@ -324,7 +340,7 @@ const SellersShopsPage = () => {
             <p className="text-sm font-semibold">KYC / approvals</p>
           </div>
           <div className="space-y-3">
-            {kycQueue.map((item, idx) => (
+            {approvalsQueue.map((item, idx) => (
               <div key={idx} className="rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 flex items-center justify-between">
                 <div>
                   <p className="text-sm font-semibold">{item.name}</p>
@@ -333,6 +349,14 @@ const SellersShopsPage = () => {
                 <div className="text-right">
                   <p className="text-xs text-gray-400">{item.age}</p>
                   <p className="text-[11px] text-gray-500">Owner: {item.owner}</p>
+                  <div className="flex items-center gap-2 justify-end mt-2">
+                    <button
+                      onClick={() => alert(`Approved ${item.name}`)}
+                      className="text-xs px-2.5 py-1 rounded-md border border-gray-300 bg-white text-gray-700 hover:border-gray-400 hover:bg-gray-50 transition-colors"
+                    >
+                      Approve
+                    </button>
+                  </div>
                 </div>
               </div>
             ))}
@@ -380,18 +404,46 @@ const SellersShopsPage = () => {
         <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm space-y-4">
           <p className="text-sm font-semibold">Seller quick actions</p>
           <div className="space-y-2.5">
-            {quickActions.map((action, idx) => (
-              <button
-                key={idx}
-                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl border border-gray-200 bg-white text-left hover:border-gray-400 hover:bg-gray-50 transition-colors"
-              >
-                <action.icon className="w-4 h-4 text-gray-600" />
-                <div className="flex-1">
-                  <p className="text-sm font-semibold">{action.label}</p>
-                  <p className="text-xs text-gray-500">{action.desc}</p>
-                </div>
-              </button>
-            ))}
+            <button
+              className="w-full flex items-center gap-3 px-4 py-3 rounded-xl border border-gray-200 bg-white text-left hover:border-gray-400 hover:bg-gray-50 transition-colors"
+              onClick={() => alert('Approving P1 shops')}
+            >
+              <ShieldCheck className="w-4 h-4 text-gray-600" />
+              <div className="flex-1">
+                <p className="text-sm font-semibold">Approve P1 shops</p>
+                <p className="text-xs text-gray-500">Handle priority applications first</p>
+              </div>
+            </button>
+            <button
+              className="w-full flex items-center gap-3 px-4 py-3 rounded-xl border border-gray-200 bg-white text-left hover:border-gray-400 hover:bg-gray-50 transition-colors"
+              onClick={() => alert('Banning violating shops')}
+            >
+              <Ban className="w-4 h-4 text-gray-600" />
+              <div className="flex-1">
+                <p className="text-sm font-semibold">Ban violating shops</p>
+                <p className="text-xs text-gray-500">Suspend flagged active shops</p>
+              </div>
+            </button>
+            <button
+              className="w-full flex items-center gap-3 px-4 py-3 rounded-xl border border-gray-200 bg-white text-left hover:border-gray-400 hover:bg-gray-50 transition-colors"
+              onClick={() => alert('Export seller metrics')}
+            >
+              <ClipboardList className="w-4 h-4 text-gray-600" />
+              <div className="flex-1">
+                <p className="text-sm font-semibold">Export seller metrics</p>
+                <p className="text-xs text-gray-500">CSV for last 7 days</p>
+              </div>
+            </button>
+            <button
+              className="w-full flex items-center gap-3 px-4 py-3 rounded-xl border border-gray-200 bg-white text-left hover:border-gray-400 hover:bg-gray-50 transition-colors"
+              onClick={() => alert('Adjusting payout window')}
+            >
+              <CreditCard className="w-4 h-4 text-gray-600" />
+              <div className="flex-1">
+                <p className="text-sm font-semibold">Adjust payout window</p>
+                <p className="text-xs text-gray-500">Switch cohort to T+2</p>
+              </div>
+            </button>
           </div>
         </div>
       </section>
@@ -599,10 +651,183 @@ const SettingsPage = () => {
           </div>
         ))}
       </section>
+
+      <section className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm flex items-start gap-3">
+          <div className="w-10 h-10 rounded-xl bg-gray-100 border border-gray-200 inline-flex items-center justify-center">
+            <LogOut className="w-5 h-5 text-gray-600" />
+          </div>
+          <div className="space-y-2 flex-1">
+            <p className="text-sm font-semibold text-gray-800">Sign out</p>
+            <p className="text-xs text-gray-600">End this admin session safely.</p>
+            <button className="text-xs px-3 py-2 rounded-lg border border-gray-300 bg-white text-gray-700 hover:border-gray-400 hover:bg-gray-50 transition-colors">
+              Sign out now
+            </button>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };
 
+const NotificationsPage = () => {
+  const alerts = [
+    { title: 'Payment gateway degraded', detail: 'PayPal latency elevated', time: '5m ago' },
+    { title: 'High return rate', detail: 'Shoes category 3.2% > threshold', time: '18m ago' },
+    { title: 'New admin invite', detail: 'Sent to ops@company.com', time: '25m ago' },
+  ];
+
+  return (
+    <div className="space-y-4">
+      <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm space-y-3">
+        {alerts.map((item, idx) => (
+          <div key={idx} className="rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 flex items-center justify-between">
+            <div>
+              <p className="text-sm font-semibold text-gray-800">{item.title}</p>
+              <p className="text-xs text-gray-500">{item.detail}</p>
+            </div>
+            <span className="text-xs text-gray-400">{item.time}</span>
+          </div>
+        ))}
+      </section>
+    </div>
+  );
+};
+
+const PromosPage = () => {
+  const promos = [
+    { name: 'Flash sale', detail: '10% off sitewide', status: 'Active' },
+    { name: 'New user coupon', detail: '$5 off first order', status: 'Scheduled' },
+    { name: 'Seller fee waiver', detail: '0% commission 7 days', status: 'Draft' },
+  ];
+
+  return (
+    <div className="space-y-4">
+      <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm space-y-3">
+        {promos.map((item, idx) => (
+          <div key={idx} className="rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 flex items-center justify-between">
+            <div>
+              <p className="text-sm font-semibold text-gray-800">{item.name}</p>
+              <p className="text-xs text-gray-500">{item.detail}</p>
+            </div>
+            <span className="text-xs text-gray-500">{item.status}</span>
+          </div>
+        ))}
+      </section>
+    </div>
+  );
+};
+
+const ReportsPage = () => {
+  const reports = [
+    { title: 'Revenue by month', period: 'Jan - Feb', size: '1.2 MB' },
+    { title: 'Fulfillment performance', period: 'This week', size: '860 KB' },
+    { title: 'Refunds / disputes', period: '30 days', size: '640 KB' },
+  ];
+
+  return (
+    <div className="space-y-4">
+      <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm space-y-3">
+        {reports.map((item, idx) => (
+          <div key={idx} className="rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 flex items-center justify-between">
+            <div>
+              <p className="text-sm font-semibold text-gray-800">{item.title}</p>
+              <p className="text-xs text-gray-500">{item.period}</p>
+            </div>
+            <span className="text-xs text-gray-500">{item.size}</span>
+          </div>
+        ))}
+      </section>
+    </div>
+  );
+};
+
+const CmsPage = () => {
+  const blocks = [
+    { title: 'Home banner', desc: 'Hero image, CTA, and copy' },
+    { title: 'Landing pages', desc: 'Campaign pages and SEO meta' },
+    { title: 'Announcements', desc: 'System messages and alerts' },
+  ];
+
+  return (
+    <div className="space-y-4">
+      <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm space-y-3">
+        {blocks.map((item, idx) => (
+          <div key={idx} className="rounded-xl border border-gray-200 bg-gray-50 px-4 py-3">
+            <p className="text-sm font-semibold text-gray-800">{item.title}</p>
+            <p className="text-xs text-gray-600">{item.desc}</p>
+          </div>
+        ))}
+      </section>
+    </div>
+  );
+};
+
+const ConfigPage = () => {
+  const items = [
+    { title: 'Locale', desc: 'Timezone, currency, number/date format' },
+    { title: 'Integrations', desc: 'Payments, shipping, CRM, analytics' },
+    { title: 'Feature flags', desc: 'Rollout and beta toggles' },
+  ];
+
+  return (
+    <div className="space-y-4">
+      <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm space-y-3">
+        {items.map((item, idx) => (
+          <div key={idx} className="rounded-xl border border-gray-200 bg-gray-50 px-4 py-3">
+            <p className="text-sm font-semibold text-gray-800">{item.title}</p>
+            <p className="text-xs text-gray-600">{item.desc}</p>
+          </div>
+        ))}
+      </section>
+    </div>
+  );
+};
+
+const SecurityPage = () => {
+  const items = [
+    { title: 'MFA & SSO', desc: 'Enforce MFA, configure SSO providers' },
+    { title: 'Session policy', desc: 'Session lifetime, device limits' },
+    { title: 'Audit & compliance', desc: 'Access logs and data handling' },
+  ];
+
+  return (
+    <div className="space-y-4">
+      <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm space-y-3">
+        {items.map((item, idx) => (
+          <div key={idx} className="rounded-xl border border-gray-200 bg-gray-50 px-4 py-3">
+            <p className="text-sm font-semibold text-gray-800">{item.title}</p>
+            <p className="text-xs text-gray-600">{item.desc}</p>
+          </div>
+        ))}
+      </section>
+    </div>
+  );
+};
+
+const SupportPage = () => {
+  const tickets = [
+    { title: 'P1 - Payment fail spike', owner: 'Ops', age: '8m' },
+    { title: 'P2 - Order refund delay', owner: 'Finance', age: '22m' },
+    { title: 'P2 - Seller onboarding help', owner: 'Support', age: '35m' },
+  ];
+
+  return (
+    <div className="space-y-4">
+      <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm space-y-3">
+        {tickets.map((item, idx) => (
+          <div key={idx} className="rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 flex items-center justify-between">
+            <div>
+              <p className="text-sm font-semibold text-gray-800">{item.title}</p>
+              <p className="text-xs text-gray-500">Owner: {item.owner}</p>
+            </div>
+            <span className="text-xs text-gray-400">{item.age}</span>
+          </div>
+        ))}
+      </section>
+    </div>
+  );
+};
 const App = () => {
   const [activePage, setActivePage] = useState('overview');
 
@@ -618,8 +843,20 @@ const App = () => {
         return <OrdersPage />;
       case 'payments':
         return <PaymentsPage />;
-      case 'settings':
-        return <SettingsPage />;
+      case 'notifications':
+        return <NotificationsPage />;
+      case 'promos':
+        return <PromosPage />;
+      case 'reports':
+        return <ReportsPage />;
+      case 'cms':
+        return <CmsPage />;
+      case 'config':
+        return <ConfigPage />;
+      case 'security':
+        return <SecurityPage />;
+      case 'support':
+        return <SupportPage />;
       default:
         return <OverviewPage />;
     }
@@ -630,8 +867,8 @@ const App = () => {
       <Sidebar active={activePage} onSelect={setActivePage} />
       <div className="flex-1 flex flex-col overflow-hidden">
         <Header />
-        <main className="flex-1 overflow-x-hidden overflow-y-auto px-6 py-8 lg:px-10 bg-gray-100">
-          <div className="w-full max-w-7xl mx-auto space-y-8">{renderPage()}</div>
+        <main className="flex-1 overflow-x-hidden overflow-y-auto px-6 py-8 lg:px-12 bg-gray-100">
+          <div className="w-full mx-auto space-y-8">{renderPage()}</div>
         </main>
       </div>
     </div>

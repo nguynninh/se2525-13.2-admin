@@ -14,6 +14,12 @@ import {
   ShieldCheck,
   Settings,
   LogOut,
+  Bell,
+  BarChart3,
+  Tag,
+  FileText,
+  Globe2,
+  Headset,
 } from 'lucide-react';
 
 const Sidebar = ({ active = 'overview', onSelect }) => {
@@ -23,16 +29,14 @@ const Sidebar = ({ active = 'overview', onSelect }) => {
     { icon: Store, label: 'Sellers & Shops', key: 'sellers' },
     { icon: ClipboardList, label: 'Orders', key: 'orders' },
     { icon: CreditCard, label: 'Payments', key: 'payments' },
-    { icon: Settings, label: 'Settings', key: 'settings' },
-  ];
-
-  const secondary = [
-    { icon: Activity, label: 'Health & Logs' },
-    { icon: ShieldCheck, label: 'Access control' },
-    { icon: Percent, label: 'Service fees' },
-    { icon: PackageCheck, label: 'Product moderation' },
-    { icon: Wallet, label: 'Seller payouts' },
-    { icon: BadgeCheck, label: 'Shop approvals' },
+    { icon: Bell, label: 'Notifications', key: 'notifications' },
+    { icon: Tag, label: 'Promos', key: 'promos' },
+    { icon: BarChart3, label: 'Reports', key: 'reports' },
+    { icon: FileText, label: 'CMS', key: 'cms' },
+    { icon: Settings, label: 'Config', key: 'config' },
+    { icon: ShieldCheck, label: 'Security', key: 'security' },
+    { icon: Headset, label: 'Support', key: 'support' },
+    { icon: LogOut, label: 'Sign out', key: 'signout' },
   ];
 
   return (
@@ -54,7 +58,13 @@ const Sidebar = ({ active = 'overview', onSelect }) => {
             {primary.map((item, i) => (
               <button
                 key={i}
-                onClick={() => onSelect?.(item.key)}
+                onClick={() => {
+                  if (item.key === 'signout') {
+                    window.alert('You have signed out.');
+                    return;
+                  }
+                  onSelect?.(item.key);
+                }}
                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all border ${
                   active === item.key
                     ? 'bg-gray-100 border-gray-300 text-gray-900 shadow-sm'
@@ -68,26 +78,9 @@ const Sidebar = ({ active = 'overview', onSelect }) => {
           </nav>
         </div>
 
-        <div className="space-y-1">
-          <p className="text-xs text-gray-500 px-1">Secondary actions</p>
-          <nav className="space-y-1.5">
-            {secondary.map((item, i) => (
-              <button
-                key={i}
-                className="w-full flex items-center gap-3 px-4 py-2.5 rounded-lg border border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300 hover:bg-gray-50 transition-colors"
-              >
-                <item.icon className="w-4 h-4" />
-                <span className="text-sm flex-1 text-left">{item.label}</span>
-              </button>
-            ))}
-          </nav>
-        </div>
       </div>
 
-      <button className="flex items-center gap-3 px-4 py-3 text-gray-600 hover:text-gray-900 hover:border-gray-300 rounded-xl border border-transparent bg-gray-50 transition-colors">
-        <LogOut className="w-5 h-5" />
-        <span className="text-sm font-medium">Sign out</span>
-      </button>
+      {/* Sign out moved into primary navigation */}
     </div>
   );
 };
