@@ -56,7 +56,7 @@ const AuthPage = ({ initialMode = 'login' }) => {
       <div className="absolute inset-0 bg-gradient-to-t from-white/40 via-white/20 to-transparent lg:bg-gradient-to-r" />
 
       <div className="relative w-full max-w-6xl mx-auto flex justify-start">
-        <div className="w-full max-w-xl lg:w-[480px] bg-white/90 backdrop-blur-sm rounded-xl shadow-2xl p-6 sm:p-8">
+        <div className="w-full max-w-2xl lg:w-[560px] bg-white/92 backdrop-blur-sm rounded-2xl shadow-2xl p-8 sm:p-10">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-6">
               <TabButton active={isLogin} onClick={() => setMode('login')}>
@@ -75,12 +75,12 @@ const AuthPage = ({ initialMode = 'login' }) => {
             </button>
           </div>
 
-          <div className="mt-6 sm:mt-10 space-y-8">
-            <div className="text-2xl sm:text-3xl font-semibold text-gray-800 text-center">
+          <div className="mt-8 sm:mt-12 space-y-10">
+            <div className="text-3xl sm:text-4xl font-semibold text-gray-800 text-center">
               {headline}
             </div>
 
-            <form className="space-y-5">
+            <form className="space-y-6">
               {!isLogin && (
                 <InputRow icon="M15.75 6.75a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.5 19.5a7.5 7.5 0 0 1 15 0">
                   <input
@@ -148,21 +148,21 @@ const AuthPage = ({ initialMode = 'login' }) => {
 
               <button
                 type="button"
-                className="w-full py-3 mt-3 text-sm font-semibold text-gray-700 bg-white border border-gray-200 rounded hover:border-gray-300 hover:shadow-sm transition"
+                className="w-full py-3.5 mt-3 text-base font-semibold text-gray-700 bg-white border border-gray-200 rounded-lg hover:border-gray-300 hover:shadow-sm transition"
               >
                 {isLogin ? 'Login' : 'Register'}
               </button>
             </form>
 
             {isLogin && (
-              <div className="pt-4 border-t border-gray-100">
+              <div className="pt-6 border-t border-gray-100">
                 <div className="text-center text-sm text-gray-500 mb-4">Or Sign in with:</div>
-                <div className="flex items-center justify-center gap-4">
+                <div className="flex items-center justify-center gap-5">
                   {['F', 'G', 'G+', 'In'].map((label) => (
                     <button
                       key={label}
                       type="button"
-                      className="h-10 w-10 rounded-full border border-gray-200 text-sm font-semibold text-gray-500 hover:border-gray-400 hover:text-gray-700 transition"
+                      className="h-11 w-11 rounded-full border border-gray-200 text-sm font-semibold text-gray-500 hover:border-gray-400 hover:text-gray-700 transition"
                       aria-label={`Sign in with ${label}`}
                     >
                       {label}
