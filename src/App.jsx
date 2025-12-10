@@ -11,9 +11,13 @@ import Delivery from './pages/Delivery';
 import Notifications from './pages/Notification';
 import Settings from './pages/Settings';
 import Discount from './pages/Discount';
+import AuthPage from './pages/Auth';
 
 const AppContent = () => {
   const location = useLocation();
+
+  const isAuthRoute = location.pathname.startsWith('/login') || location.pathname.startsWith('/register');
+
   let title = 'Dashboard';
   if (location.pathname === '/chat') {
     title = 'Chat';
@@ -34,6 +38,17 @@ const AppContent = () => {
   }
 
   const showDatePicker = location.pathname === '/';
+
+  if (isAuthRoute) {
+    return (
+      <main className="min-h-screen bg-content-bg">
+        <Routes>
+          <Route path="/login" element={<AuthPage initialMode="login" />} />
+          <Route path="/register" element={<AuthPage initialMode="register" />} />
+        </Routes>
+      </main>
+    );
+  }
 
   return (
     <div className="flex h-screen bg-content-bg overflow-hidden">
