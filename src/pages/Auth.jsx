@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 
-const heroImage =
-  'https://images.unsplash.com/photo-1585386959984-a4155224a1ad?auto=format&fit=crop&w=1800&q=80';
+// Local hero background provided by user
+const heroImage = new URL('../../shopping-bag-cart 1.png', import.meta.url).href;
 
 const TabButton = ({ active, children, onClick }) => (
   <button
@@ -44,10 +44,17 @@ const AuthPage = ({ initialMode = 'login' }) => {
   );
 
   return (
-    <div className="min-h-screen bg-[#f5f7fb] flex items-center justify-center px-4 py-10">
-      <div className="w-full max-w-6xl bg-white shadow-2xl rounded-2xl overflow-hidden border border-gray-100">
-        <div className="grid grid-cols-1 lg:grid-cols-2">
-          <div className="relative bg-white px-6 sm:px-10 py-8 sm:py-12">
+    <div className="min-h-screen bg-[#e9edf3] flex items-center justify-center px-4 py-10">
+      <div className="relative w-full max-w-6xl overflow-hidden rounded-2xl border border-blue-200 shadow-2xl">
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url(${heroImage})` }}
+          aria-hidden="true"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-white/40 via-white/20 to-transparent lg:bg-gradient-to-l" />
+
+        <div className="relative flex flex-col lg:flex-row items-start lg:items-center">
+          <div className="bg-white/95 backdrop-blur-sm rounded-xl shadow-xl m-5 sm:m-8 lg:ml-10 p-6 sm:p-8 w-full max-w-md">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-6">
                 <TabButton active={isLogin} onClick={() => setMode('login')}>
@@ -59,19 +66,19 @@ const AuthPage = ({ initialMode = 'login' }) => {
               </div>
               <button
                 type="button"
-                className="text-gray-400 hover:text-gray-600 transition-colors"
+                className="text-gray-400 hover:text-gray-600 transition-colors text-xl leading-none"
                 aria-label="Close"
               >
                 ×
               </button>
             </div>
 
-            <div className="mt-8 sm:mt-12 space-y-10">
+            <div className="mt-6 sm:mt-10 space-y-8">
               <div className="text-2xl sm:text-3xl font-semibold text-gray-800 text-center">
                 {headline}
               </div>
 
-              <form className="space-y-6">
+              <form className="space-y-5">
                 {!isLogin && (
                   <InputRow icon="M15.75 6.75a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.5 19.5a7.5 7.5 0 0 1 15 0">
                     <input
@@ -142,7 +149,7 @@ const AuthPage = ({ initialMode = 'login' }) => {
 
                 <button
                   type="button"
-                  className="w-full py-3 mt-4 text-sm font-semibold text-gray-700 bg-white border border-gray-200 rounded hover:border-gray-300 hover:shadow-sm transition"
+                  className="w-full py-3 mt-3 text-sm font-semibold text-gray-700 bg-white border border-gray-200 rounded hover:border-gray-300 hover:shadow-sm transition"
                 >
                   {isLogin ? 'Login' : 'Register'}
                 </button>
@@ -168,14 +175,7 @@ const AuthPage = ({ initialMode = 'login' }) => {
             </div>
           </div>
 
-          <div className="relative min-h-[300px] lg:min-h-[620px]">
-            <img
-              src={heroImage}
-              alt="Shopping bag in a cart"
-              className="absolute inset-0 h-full w-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-white/40 via-white/20 to-transparent lg:bg-gradient-to-l" />
-          </div>
+          <div className="hidden lg:block flex-1 min-h-[620px]" />
         </div>
       </div>
     </div>
