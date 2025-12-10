@@ -44,13 +44,19 @@ const AuthPage = ({ initialMode = 'login' }) => {
   );
 
   return (
-    <div
-      className="relative min-h-screen bg-cover bg-center flex items-center justify-start px-4 sm:px-10 lg:px-16 py-10"
-      style={{ backgroundImage: `url(${heroImage})` }}
-    >
-      <div className="absolute inset-0 bg-gradient-to-t from-white/45 via-white/20 to-white/10 lg:bg-gradient-to-r" />
+    <div className="min-h-screen bg-[#e9edf3] flex flex-col lg:flex-row items-stretch overflow-hidden">
+      <div className="flex-1 relative">
+        <img
+          src={heroImage}
+          alt="Shopping cart hero"
+          className="h-full w-full object-contain object-center bg-[#e9edf3]"
+        />
+        <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-white/35 via-white/15 to-transparent" />
+      </div>
 
-      <div className="relative w-full max-w-xl bg-white/95 backdrop-blur-sm rounded-xl shadow-2xl p-6 sm:p-8">
+      <div className="absolute inset-0 lg:hidden bg-gradient-to-b from-white/65 via-white/45 to-white/30 pointer-events-none" />
+
+      <div className="relative w-full lg:w-[480px] max-w-xl bg-white/95 backdrop-blur-sm shadow-2xl lg:shadow-xl lg:my-10 lg:mx-8 p-6 sm:p-8 lg:rounded-xl">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-6">
             <TabButton active={isLogin} onClick={() => setMode('login')}>
