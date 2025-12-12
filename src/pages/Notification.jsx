@@ -1,47 +1,6 @@
 import React, { useMemo, useState } from "react";
 
-const initialNotifications = [
-  {
-    id: 1,
-    title: "Order #ORD111 has shipped",
-    message: "Customer Gojo Sulaiman received a tracking update.",
-    type: "Orders",
-    time: "5 minutes ago",
-    unread: true,
-  },
-  {
-    id: 2,
-    title: "New message from customer",
-    message: "Alan sent a question about return policy.",
-    type: "Support",
-    time: "15 minutes ago",
-    unread: true,
-  },
-  {
-    id: 3,
-    title: "Low stock alert: T-Shirts",
-    message: "Stock for T-Shirts is below 20 units.",
-    type: "System",
-    time: "1 hour ago",
-    unread: false,
-  },
-  {
-    id: 4,
-    title: "Promotion scheduled",
-    message: "Weekend sale banner will go live tomorrow.",
-    type: "Marketing",
-    time: "2 hours ago",
-    unread: false,
-  },
-  {
-    id: 5,
-    title: "Order #ORD107 canceled",
-    message: "Order was canceled by the customer.",
-    type: "Orders",
-    time: "Yesterday",
-    unread: false,
-  },
-];
+const initialNotifications = [];
 
 const filters = [
   { label: "All", value: "all" },

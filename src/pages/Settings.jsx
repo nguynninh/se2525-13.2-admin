@@ -2,25 +2,25 @@ import React, { useState, useRef } from "react";
 
 const Settings = () => {
   const [profile, setProfile] = useState({
-    name: "Store Admin",
-    email: "admin@store.com",
-    phone: "+1 202 555 0134",
-    avatar:
-      "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&h=120&q=80",
+    name: "",
+    email: "",
+    phone: "",
+    avatar: "",
   });
 
   const [preferences, setPreferences] = useState({
-    currency: "USD",
-    language: "English",
-    timezone: "GMT+7",
+    currency: "",
+    language: "",
+    timezone: "",
   });
 
   const [notifications, setNotifications] = useState({
-    orders: true,
+    orders: false,
     marketing: false,
-    system: true,
-    chat: true,
+    system: false,
+    chat: false,
   });
+  const avatarInitial = (profile.name || "?").slice(0, 1).toUpperCase();
 
   const handleProfileChange = (field, value) => {
     setProfile((prev) => ({ ...prev, [field]: value }));
@@ -60,7 +60,13 @@ const Settings = () => {
           <h2 className="text-base font-semibold text-gray-900">Profile</h2>
           <div className="flex flex-col md:flex-row md:items-start gap-4">
             <div className="flex flex-col items-center gap-3">
-              <img src={profile.avatar} alt="Avatar" className="h-20 w-20 rounded-full object-cover border border-gray-200" />
+              {profile.avatar ? (
+                <img src={profile.avatar} alt="Avatar" className="h-20 w-20 rounded-full object-cover border border-gray-200" />
+              ) : (
+                <div className="h-20 w-20 rounded-full border border-dashed border-gray-300 bg-gray-50 flex items-center justify-center text-xl font-semibold text-gray-500">
+                  {avatarInitial}
+                </div>
+              )}
               <input
                 ref={fileInputRef}
                 type="file"
@@ -114,7 +120,7 @@ const Settings = () => {
                 <label className="block text-sm font-medium text-gray-800">Password</label>
                 <input
                   type="password"
-                  placeholder="••••••••"
+                  placeholder="********"
                   className="mt-2 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-400"
                 />
                 <p className="mt-1 text-xs text-gray-500">Leave blank to keep current password.</p>
@@ -134,6 +140,9 @@ const Settings = () => {
                 onChange={(e) => handlePrefChange("currency", e.target.value)}
                 className="mt-2 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-400"
               >
+                <option value="" disabled>
+                  Select currency
+                </option>
                 <option value="USD">USD</option>
                 <option value="VND">VND</option>
                 <option value="EUR">EUR</option>
@@ -146,6 +155,9 @@ const Settings = () => {
                 onChange={(e) => handlePrefChange("language", e.target.value)}
                 className="mt-2 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-400"
               >
+                <option value="" disabled>
+                  Select language
+                </option>
                 <option value="English">English</option>
                 <option value="Vietnamese">Vietnamese</option>
               </select>
@@ -156,6 +168,7 @@ const Settings = () => {
                 type="text"
                 value={preferences.timezone}
                 onChange={(e) => handlePrefChange("timezone", e.target.value)}
+                placeholder="e.g. GMT+7"
                 className="mt-2 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-400"
               />
             </div>
@@ -195,7 +208,8 @@ const Settings = () => {
               <label className="block text-sm font-medium text-gray-800">Store name</label>
               <input
                 type="text"
-                defaultValue="My Fashion Store"
+                defaultValue=""
+                placeholder="Store name"
                 className="mt-2 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-400"
               />
             </div>
@@ -203,7 +217,8 @@ const Settings = () => {
               <label className="block text-sm font-medium text-gray-800">Contact email</label>
               <input
                 type="email"
-                defaultValue="support@store.com"
+                defaultValue=""
+                placeholder="you@example.com"
                 className="mt-2 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-400"
               />
             </div>
@@ -211,7 +226,8 @@ const Settings = () => {
               <label className="block text-sm font-medium text-gray-800">Address</label>
               <input
                 type="text"
-                defaultValue="123 Commerce St, HCMC"
+                defaultValue=""
+                placeholder="Enter store address"
                 className="mt-2 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-400"
               />
             </div>
@@ -219,7 +235,8 @@ const Settings = () => {
               <label className="block text-sm font-medium text-gray-800">Return policy link</label>
               <input
                 type="text"
-                defaultValue="https://store.com/policy"
+                defaultValue=""
+                placeholder="https://example.com/policy"
                 className="mt-2 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-400"
               />
             </div>

@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 
-const initialPrograms = [
-  { name: "1/12", type: "Percentage", value: "10%", start: "30/11/2025", end: "03/12/2025" },
-  { name: "Black Friday", type: "Fixed amount", value: "200,000 VND", start: "22/11/2025", end: "27/11/2025" },
-];
+const initialPrograms = [];
 
 const ProgramFormModal = ({ onClose, onSubmit, initial }) => {
   const [form, setForm] = useState(
@@ -183,31 +180,39 @@ const Discount = () => {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100">
-            {programs.map((p, idx) => (
-              <tr key={`${p.name}-${idx}`} className="hover:bg-gray-50">
-                <td className="px-6 py-4 font-semibold text-gray-900">{p.name}</td>
-                <td className="px-6 py-4 text-gray-700">{p.type}</td>
-                <td className="px-6 py-4 text-gray-700">{p.value}</td>
-                <td className="px-6 py-4 text-gray-700">{p.start}</td>
-                <td className="px-6 py-4 text-gray-700">{p.end}</td>
-                <td className="px-6 py-4 text-gray-700">
-                  <div className="flex gap-2">
-                    <button
-                      className="rounded-lg bg-blue-600 px-3 py-1 text-white shadow-sm transition hover:bg-blue-700"
-                      onClick={() => setModalState({ open: true, editingIndex: idx })}
-                    >
-                      Edit
-                    </button>
-                    <button
-                      className="rounded-lg border px-3 py-1 text-red-600 shadow-sm transition hover:bg-gray-100"
-                      onClick={() => deleteProgram(idx)}
-                    >
-                      Delete
-                    </button>
-                  </div>
+            {programs.length === 0 ? (
+              <tr>
+                <td colSpan="6" className="px-6 py-6 text-center text-sm text-gray-600">
+                  No discount programs available.
                 </td>
               </tr>
-            ))}
+            ) : (
+              programs.map((p, idx) => (
+                <tr key={`${p.name}-${idx}`} className="hover:bg-gray-50">
+                  <td className="px-6 py-4 font-semibold text-gray-900">{p.name}</td>
+                  <td className="px-6 py-4 text-gray-700">{p.type}</td>
+                  <td className="px-6 py-4 text-gray-700">{p.value}</td>
+                  <td className="px-6 py-4 text-gray-700">{p.start}</td>
+                  <td className="px-6 py-4 text-gray-700">{p.end}</td>
+                  <td className="px-6 py-4 text-gray-700">
+                    <div className="flex gap-2">
+                      <button
+                        className="rounded-lg bg-blue-600 px-3 py-1 text-white shadow-sm transition hover:bg-blue-700"
+                        onClick={() => setModalState({ open: true, editingIndex: idx })}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        className="rounded-lg border px-3 py-1 text-red-600 shadow-sm transition hover:bg-gray-100"
+                        onClick={() => deleteProgram(idx)}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>
