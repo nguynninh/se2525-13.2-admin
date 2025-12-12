@@ -39,7 +39,7 @@ const AuthPage = ({ initialMode = 'login' }) => {
   const isLogin = mode === 'login';
 
   const headline = useMemo(
-    () => (isLogin ? "We're glad you're here." : 'Create your shopping account.'),
+    () => (isLogin ? "" : ''),
     [isLogin],
   );
 
