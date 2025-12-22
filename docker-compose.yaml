@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   admin:
     build:
@@ -9,8 +7,6 @@ services:
     restart: unless-stopped
     environment:
       - NODE_ENV=production
-    depends_on:
-      - nginx
     networks:
       - admin-network
 
