@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import AddCategoryModal from "../components/AddCategoryModal";
-
-const initialCategories = [];
+import { fetchCategories } from "../api/product";
 
 const EditCategoryModal = ({ category, onClose }) => {
   if (!category) return null;
@@ -69,14 +68,40 @@ const EditCategoryModal = ({ category, onClose }) => {
 const AddCategory = () => {
   const [isAddCategoryOpen, setIsAddCategoryOpen] = useState(false);
   const [editingCategory, setEditingCategory] = useState(null);
-  const [rows, setRows] = useState(initialCategories);
+  const [categories, setCategories] = useState([]);
+  const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleDelete = (name) => {
-    const ok = window.confirm("Are you sure you want to delete this category?");
-    if (ok) {
-      setRows((prev) => prev.filter((item) => item.name !== name));
+  const loadCategories = async () => {
+    setLoading(true);
+    setError("");
+    try {
+      const data = await fetchCategories();
+      setCategories(Array.isArray(data) ? data : []);
+    } catch (err) {
+      setError(err.message || "Unable to load categories.");
+    } finally {
+      setLoading(false);
     }
   };
+
+  useEffect(() => {
+    loadCategories();
+  }, []);
+
+  const handleDelete = (name) => {
+    const ok = window.confirm("This only removes the row locally. Continue?");
+    if (ok) {
+      setCategories((prev) => prev.filter((item) => item.name !== name));
+    }
+  };
+
+  const filteredCategories = useMemo(() => {
+    if (!search.trim()) return categories;
+    const keyword = search.trim().toLowerCase();
+    return categories.filter((item) => item.name?.toLowerCase().includes(keyword));
+  }, [categories, search]);
 
   return (
     <div className="p-4">
@@ -105,6 +130,8 @@ const AddCategory = () => {
             <input
               type="text"
               placeholder="Search category"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
               className="mt-2 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-800 shadow-sm focus:border-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-400"
             />
           </div>
@@ -112,10 +139,18 @@ const AddCategory = () => {
 
         <div className="mt-3 flex flex-wrap items-center justify-between gap-2">
           <div className="flex w-full gap-2 md:w-auto">
-            <button className="w-full rounded-lg bg-gray-800 px-4 py-2 text-sm font-semibold text-white shadow transition hover:bg-gray-900 md:w-28">
-              Search
+            <button
+              type="button"
+              onClick={loadCategories}
+              className="w-full rounded-lg bg-gray-800 px-4 py-2 text-sm font-semibold text-white shadow transition hover:bg-gray-900 md:w-28"
+            >
+              Refresh
             </button>
-            <button className="w-full rounded-lg border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-700 shadow-sm transition hover:bg-gray-50 md:w-28">
+            <button
+              type="button"
+              onClick={() => setSearch("")}
+              className="w-full rounded-lg border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-700 shadow-sm transition hover:bg-gray-50 md:w-28"
+            >
               Reset
             </button>
           </div>
@@ -123,30 +158,47 @@ const AddCategory = () => {
       </div>
 
       <div className="overflow-x-auto rounded-lg bg-white shadow">
+        {error && (
+          <div className="px-6 py-3 text-sm text-red-600 border-b border-gray-100">
+            {error}
+          </div>
+        )}
         <table className="min-w-full divide-y divide-gray-100 text-sm">
           <thead className="bg-gray-50 text-xs font-semibold uppercase text-gray-600">
             <tr>
               <th className="px-6 py-3 text-left">Category</th>
               <th className="px-6 py-3 text-left">Image</th>
-              <th className="px-6 py-3 text-left">Description</th>
+              <th className="px-6 py-3 text-left">Slug</th>
               <th className="px-6 py-3 text-left">Actions</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100">
-            {rows.length === 0 ? (
+            {loading ? (
+              <tr>
+                <td colSpan="4" className="px-6 py-6 text-center text-sm text-gray-600">
+                  Loading categories...
+                </td>
+              </tr>
+            ) : filteredCategories.length === 0 ? (
               <tr>
                 <td colSpan="4" className="px-6 py-6 text-center text-sm text-gray-600">
                   No categories available.
                 </td>
               </tr>
             ) : (
-              rows.map((category, index) => (
+              filteredCategories.map((category, index) => (
                 <tr key={`${category.name}-${index}`} className="hover:bg-gray-50">
                   <td className="px-6 py-4 font-semibold text-gray-900">{category.name}</td>
                   <td className="px-6 py-4">
-                    <img src={category.image} alt={category.name} className="h-16 w-16 rounded-md object-cover" />
+                    {category.icon_url ? (
+                      <img src={category.icon_url} alt={category.name} className="h-16 w-16 rounded-md object-cover" />
+                    ) : (
+                      <div className="flex h-16 w-16 items-center justify-center rounded-md bg-gray-100 text-xs font-semibold text-gray-500">
+                        N/A
+                      </div>
+                    )}
                   </td>
-                  <td className="px-6 py-4 text-gray-700">{category.description}</td>
+                  <td className="px-6 py-4 text-gray-700">{category.slug}</td>
                   <td className="px-6 py-4 text-sm">
                     <div className="flex gap-2">
                       <button

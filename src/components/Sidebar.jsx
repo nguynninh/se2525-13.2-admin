@@ -7,7 +7,6 @@ const Sidebar = () => {
     { icon: '/icons/Buy-1.png', label: 'Product', path: '/product' },
     { icon: '/icons/Ticket.png', label: 'Delivery', path: '/delivery' },
     { icon: '/icons/sale.png', label: 'Discounts', path: '/discounts' },
-    { icon: '/icons/message.png', label: 'Chat', path: '/chat', badge: 49 },
     { icon: '/icons/Notification.png', label: 'Notification', path: '/notifications' },
     { icon: '/icons/settings.jpg', label: 'Settings', path: '/settings' },
     { icon: '/icons/signout.png', label: 'Sign out', path: null },
@@ -73,11 +72,6 @@ const Sidebar = () => {
                         {item.label}
                       </span>
                     </div>
-                    {typeof item.badge === 'number' && item.badge > 0 && (
-                      <span className="ml-auto inline-flex items-center justify-center flex-shrink-0 text-[10px] leading-none font-semibold px-2 py-0.5 rounded-full bg-pink-100 text-pink-600">
-                        {item.badge}
-                      </span>
-                    )}
                   </>
                 )}
               </NavLink>

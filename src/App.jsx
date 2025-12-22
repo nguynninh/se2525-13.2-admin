@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import Sidebar from './components/Sidebar';
 import Header from './components/Header';
 import Dashboard from './pages/Dashboard';
-import Chat from './pages/Chat';
 import Product from './pages/Product';
 import AddProduct from './pages/AddProduct';
 import AddCategory from './pages/AddCategory';
@@ -15,9 +14,7 @@ import Discount from './pages/Discount';
 const AppContent = () => {
   const location = useLocation();
   let title = 'Dashboard';
-  if (location.pathname === '/chat') {
-    title = 'Chat';
-  } else if (location.pathname === '/product') {
+  if (location.pathname === '/product') {
     title = 'Product';
   } else if (location.pathname === '/add-product') {
     title = 'Add Product';
@@ -43,7 +40,6 @@ const AppContent = () => {
         <main className="flex-1 overflow-y-auto p-3 lg:p-5 min-w-0 bg-content-bg">
           <Routes>
             <Route path="/" element={<Dashboard />} />
-            <Route path="/chat" element={<Chat />} />
           <Route path="/product" element={<Product />} />
           <Route path="/add-product" element={<AddProduct />} />
           <Route path="/add-category" element={<AddCategory />} />
