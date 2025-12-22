@@ -12,7 +12,6 @@ const Settings = () => {
     orders: false,
     marketing: false,
     system: false,
-    chat: false,
   });
   const avatarInitial = (profile.name || "?").slice(0, 1).toUpperCase();
 
@@ -127,7 +126,6 @@ const Settings = () => {
           <div className="space-y-2 text-sm text-gray-800">
             {[
               { key: "orders", label: "Orders & delivery updates" },
-              { key: "chat", label: "Customer chat" },
               { key: "marketing", label: "Marketing campaigns" },
               { key: "system", label: "System alerts" },
             ].map((item) => (
