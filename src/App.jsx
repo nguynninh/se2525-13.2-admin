@@ -30,13 +30,11 @@ const AppContent = () => {
     title = 'Discount Programs';
   }
 
-  const showDatePicker = location.pathname === '/';
-
   return (
     <div className="flex h-screen bg-content-bg overflow-hidden">
       <Sidebar />
       <div className="flex-1 flex flex-col overflow-hidden min-w-0">
-        <Header title={title} showDatePicker={showDatePicker} />
+        <Header title={title} />
         <main className="flex-1 overflow-y-auto p-3 lg:p-5 min-w-0 bg-content-bg">
           <Routes>
             <Route path="/" element={<Dashboard />} />
