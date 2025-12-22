@@ -18,11 +18,9 @@ const Header = ({ title, showDatePicker = false }) => {
           </div>
         )}
         <div className="flex items-center gap-2 flex-shrink-0">
-          <img
-            src="https://randomuser.me/api/portraits/men/32.jpg"
-            alt="Profile"
-            className="w-7 h-7 lg:w-8 lg:h-8 rounded-full border-2 border-gray-300"
-          />
+          <div className="w-7 h-7 lg:w-8 lg:h-8 rounded-full border-2 border-gray-300 bg-gray-800 text-white grid place-items-center text-xs font-semibold">
+            A
+          </div>
         </div>
       </div>
     </div>

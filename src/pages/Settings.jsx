@@ -8,12 +8,6 @@ const Settings = () => {
     avatar: "",
   });
 
-  const [preferences, setPreferences] = useState({
-    currency: "",
-    language: "",
-    timezone: "",
-  });
-
   const [notifications, setNotifications] = useState({
     orders: false,
     marketing: false,
@@ -24,10 +18,6 @@ const Settings = () => {
 
   const handleProfileChange = (field, value) => {
     setProfile((prev) => ({ ...prev, [field]: value }));
-  };
-
-  const handlePrefChange = (field, value) => {
-    setPreferences((prev) => ({ ...prev, [field]: value }));
   };
 
   const toggleNotify = (field) => {
@@ -44,7 +34,7 @@ const Settings = () => {
     <div className="p-4 lg:p-5 space-y-4 bg-content-bg min-h-screen">
       <div className="rounded-xl bg-white border border-gray-200 p-4 shadow-sm flex items-center justify-between">
         <div>
-          <p className="text-sm text-gray-600">Manage your account, store preferences, and notifications.</p>
+          <p className="text-sm text-gray-600">Manage your account and notifications.</p>
         </div>
         <button
           onClick={saveAll}
@@ -56,7 +46,7 @@ const Settings = () => {
 
       <div className="grid gap-4 lg:grid-cols-3">
         {/* Profile */}
-        <div className="lg:col-span-2 rounded-xl bg-white border border-gray-200 p-4 shadow-sm space-y-4">
+        <div className="lg:col-span-3 rounded-xl bg-white border border-gray-200 p-4 shadow-sm space-y-4">
           <h2 className="text-base font-semibold text-gray-900">Profile</h2>
           <div className="flex flex-col md:flex-row md:items-start gap-4">
             <div className="flex flex-col items-center gap-3">
@@ -125,52 +115,6 @@ const Settings = () => {
                 />
                 <p className="mt-1 text-xs text-gray-500">Leave blank to keep current password.</p>
               </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Preferences */}
-        <div className="rounded-xl bg-white border border-gray-200 p-4 shadow-sm space-y-3">
-          <h2 className="text-base font-semibold text-gray-900">Store preferences</h2>
-          <div className="space-y-3">
-            <div>
-              <label className="block text-sm font-medium text-gray-800">Currency</label>
-              <select
-                value={preferences.currency}
-                onChange={(e) => handlePrefChange("currency", e.target.value)}
-                className="mt-2 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-400"
-              >
-                <option value="" disabled>
-                  Select currency
-                </option>
-                <option value="USD">USD</option>
-                <option value="VND">VND</option>
-                <option value="EUR">EUR</option>
-              </select>
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-800">Language</label>
-              <select
-                value={preferences.language}
-                onChange={(e) => handlePrefChange("language", e.target.value)}
-                className="mt-2 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-400"
-              >
-                <option value="" disabled>
-                  Select language
-                </option>
-                <option value="English">English</option>
-                <option value="Vietnamese">Vietnamese</option>
-              </select>
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-800">Timezone</label>
-              <input
-                type="text"
-                value={preferences.timezone}
-                onChange={(e) => handlePrefChange("timezone", e.target.value)}
-                placeholder="e.g. GMT+7"
-                className="mt-2 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-400"
-              />
             </div>
           </div>
         </div>
