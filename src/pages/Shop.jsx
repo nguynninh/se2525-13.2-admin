@@ -91,7 +91,7 @@ const Shop = () => {
           <div className="space-y-2">
             {favorites.length === 0 ? (
               <div className="border border-dashed border-gray-200 rounded-lg p-3 text-sm text-gray-600">
-                Chưa có người theo dõi.
+                No followers yet.
               </div>
             ) : (
               favorites.map((fav) => (
@@ -107,7 +107,7 @@ const Shop = () => {
         <div className="bg-white border border-gray-200 rounded-xl p-4 lg:col-span-2">
           <div className="flex items-center justify-between mb-2">
             <div>
-              <p className="text-sm font-semibold text-gray-900">Đơn đăng ký seller</p>
+              <p className="text-sm font-semibold text-gray-900">Seller applications</p>
               <p className="text-xs text-gray-500">Pending / History</p>
             </div>
             <span className="text-xs text-gray-500">Quản lý duyệt</span>
@@ -126,7 +126,7 @@ const Shop = () => {
                 {applications.length === 0 ? (
                   <tr>
                     <td colSpan="4" className="px-3 py-4 text-center text-sm text-gray-600">
-                      Chưa có đơn đăng ký.
+                      No applications yet.
                     </td>
                   </tr>
                 ) : (

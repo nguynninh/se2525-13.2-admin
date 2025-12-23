@@ -28,7 +28,7 @@ const Orders = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-3">
         {statusCounters.length === 0 ? (
           <div className="border rounded-xl px-4 py-3 text-sm text-gray-600 bg-white lg:col-span-5">
-            Chưa có dữ liệu trạng thái đơn.
+            No order status data yet.
           </div>
         ) : (
           statusCounters.map((item) => (
@@ -81,7 +81,7 @@ const Orders = () => {
                 {orders.length === 0 ? (
                   <tr>
                     <td colSpan="6" className="px-4 py-6 text-center text-sm text-gray-600">
-                      Chưa có đơn hàng.
+                      No orders yet.
                     </td>
                   </tr>
                 ) : (
@@ -120,7 +120,7 @@ const Orders = () => {
             <div className="space-y-3">
               {shipments.length === 0 ? (
                 <div className="border border-dashed border-gray-200 rounded-lg p-3 text-sm text-gray-600">
-                  Chưa có shipment.
+                  No shipments yet.
                 </div>
               ) : (
                 shipments.map((shipment) => (
@@ -148,7 +148,7 @@ const Orders = () => {
             <div className="space-y-2">
               {shippingRates.length === 0 ? (
                 <div className="border border-dashed border-gray-200 rounded-lg p-3 text-sm text-gray-600">
-                  Chưa có cấu hình phí.
+                  No shipping rate configured.
                 </div>
               ) : (
                 shippingRates.map((rate) => (

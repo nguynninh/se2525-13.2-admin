@@ -45,9 +45,9 @@ const Shipping = () => {
               <thead className="bg-gray-50 text-gray-700 text-xs uppercase border-b border-gray-100">
                 <tr>
                   <th className="px-3 py-2 text-left font-semibold">Mã</th>
-                  <th className="px-3 py-2 text-left font-semibold">Đơn</th>
-                  <th className="px-3 py-2 text-left font-semibold">Hãng</th>
-                  <th className="px-3 py-2 text-left font-semibold">Trạng thái</th>
+                  <th className="px-3 py-2 text-left font-semibold">Order</th>
+                  <th className="px-3 py-2 text-left font-semibold">Carrier</th>
+                  <th className="px-3 py-2 text-left font-semibold">Status</th>
                   <th className="px-3 py-2 text-left font-semibold">ETA</th>
                 </tr>
               </thead>
@@ -55,7 +55,7 @@ const Shipping = () => {
                 {shipments.length === 0 ? (
                   <tr>
                     <td colSpan="5" className="px-3 py-4 text-center text-sm text-gray-600">
-                      Chưa có shipment.
+                      No shipments yet.
                     </td>
                   </tr>
                 ) : (
@@ -88,7 +88,7 @@ const Shipping = () => {
           <div className="space-y-2">
             {rates.length === 0 ? (
               <div className="border border-dashed border-gray-200 rounded-lg p-3 text-sm text-gray-600">
-                Chưa có cấu hình phí.
+                No shipping rate configured.
               </div>
             ) : (
               rates.map((rate) => (
@@ -119,7 +119,7 @@ const Shipping = () => {
           <div className="space-y-2">
             {addresses.length === 0 ? (
               <div className="border border-dashed border-gray-200 rounded-lg p-3 text-sm text-gray-600">
-                Chưa có địa chỉ.
+                No addresses yet.
               </div>
             ) : (
               addresses.map((addr) => (

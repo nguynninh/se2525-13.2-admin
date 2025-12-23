@@ -16,17 +16,17 @@ const StatCard = ({ icon: Icon, label, value, color }) => (
 
 const Dashboard = () => {
   const statCards = [
-    { icon: ShoppingCart, label: 'Đơn hàng hôm nay', value: '—', color: 'bg-gray-100' },
-    { icon: PackageCheck, label: 'Đang giao', value: '—', color: 'bg-amber-100' },
-    { icon: Users2, label: 'Khách quay lại', value: '—', color: 'bg-emerald-100' },
-    { icon: CreditCard, label: 'Doanh thu', value: '—', color: 'bg-indigo-100' },
+    { icon: ShoppingCart, label: 'Orders today', value: '—', color: 'bg-gray-100' },
+    { icon: PackageCheck, label: 'In transit', value: '—', color: 'bg-amber-100' },
+    { icon: Users2, label: 'Returning customers', value: '—', color: 'bg-emerald-100' },
+    { icon: CreditCard, label: 'Revenue', value: '—', color: 'bg-indigo-100' },
   ];
 
   const quickActions = [
-    { title: 'Quản lý sản phẩm', desc: 'Sản phẩm & danh mục', action: 'Tạo mới' },
-    { title: 'Đơn & trạng thái', desc: 'Seller orders & status', action: 'Xử lý' },
-    { title: 'Shipment & phí VC', desc: 'Quản lý vận chuyển & phí', action: 'Cập nhật' },
-    { title: 'Q&A / Review', desc: 'Hỏi đáp & đánh giá sản phẩm', action: 'Trả lời' },
+    { title: 'Products', desc: 'Products & categories', action: 'Create' },
+    { title: 'Orders', desc: 'Seller orders & status', action: 'Process' },
+    { title: 'Shipping', desc: 'Shipments & rates', action: 'Update' },
+    { title: 'Q&A / Review', desc: 'Questions & product reviews', action: 'Reply' },
   ];
 
   const recentOrders = [];
@@ -46,9 +46,9 @@ const Dashboard = () => {
   };
 
   const supportCards = [
-    { title: 'Bảo mật & session', desc: 'Đăng nhập, refresh token, đăng xuất', icon: ShieldCheck },
-    { title: 'Khách & địa chỉ', desc: 'Hồ sơ người dùng, địa chỉ giao hàng', icon: Users2 },
-    { title: 'Chat & tương tác', desc: 'Review / Q&A phản hồi nhanh', icon: MessageCircle },
+    { title: 'Security & session', desc: 'Login, refresh token, logout', icon: ShieldCheck },
+    { title: 'Profile & addresses', desc: 'User profile, shipping addresses', icon: Users2 },
+    { title: 'Engagement', desc: 'Reviews and Q&A responses', icon: MessageCircle },
   ];
 
   return (
@@ -63,29 +63,29 @@ const Dashboard = () => {
         <div className="bg-white border border-gray-200 rounded-xl p-4 xl:col-span-2">
           <div className="flex items-center justify-between mb-3">
             <div>
-              <p className="text-sm text-gray-500">Đơn hàng</p>
+              <p className="text-sm text-gray-500">Orders</p>
               <p className="text-lg font-semibold text-gray-900">Seller order / status / history</p>
             </div>
             <button className="px-3 py-2 text-sm font-semibold text-white bg-gray-900 rounded-lg">
-              Tạo shipment
+              Create shipment
             </button>
           </div>
           <div className="overflow-x-auto">
             <table className="min-w-full text-sm">
               <thead className="bg-gray-50 text-gray-700 text-xs uppercase border-b border-gray-100">
                 <tr>
-                  <th className="px-3 py-2 text-left font-semibold">Mã đơn</th>
-                  <th className="px-3 py-2 text-left font-semibold">Khách hàng</th>
-                  <th className="px-3 py-2 text-left font-semibold">Tổng</th>
-                  <th className="px-3 py-2 text-left font-semibold">Trạng thái</th>
-                  <th className="px-3 py-2 text-left font-semibold">Cập nhật</th>
+                  <th className="px-3 py-2 text-left font-semibold">Order ID</th>
+                  <th className="px-3 py-2 text-left font-semibold">Customer</th>
+                  <th className="px-3 py-2 text-left font-semibold">Total</th>
+                  <th className="px-3 py-2 text-left font-semibold">Status</th>
+                  <th className="px-3 py-2 text-left font-semibold">Updated</th>
                 </tr>
               </thead>
               <tbody>
                 {recentOrders.length === 0 ? (
                   <tr>
                     <td colSpan="5" className="px-3 py-6 text-center text-sm text-gray-600">
-                      Chưa có đơn hàng.
+                      No orders yet.
                     </td>
                   </tr>
                 ) : (
@@ -110,21 +110,21 @@ const Dashboard = () => {
               <Truck className="w-5 h-5" />
             </div>
             <div>
-              <p className="text-sm text-gray-500">Vận chuyển</p>
-              <p className="font-semibold text-gray-900">/shipments /shipping-rates</p>
+              <p className="text-sm text-gray-500">Shipping</p>
+              <p className="font-semibold text-gray-900">Shipments / shipping rates</p>
             </div>
           </div>
           <div className="space-y-2">
             <div className="flex items-center justify-between text-sm">
-              <span className="text-gray-600">Đang giao</span>
+              <span className="text-gray-600">In transit</span>
               <span className="font-semibold text-gray-900">—</span>
             </div>
             <div className="flex items-center justify-between text-sm">
-              <span className="text-gray-600">Đã giao</span>
+              <span className="text-gray-600">Delivered</span>
               <span className="font-semibold text-gray-900">—</span>
             </div>
             <div className="flex items-center justify-between text-sm">
-              <span className="text-gray-600">Tỉ lệ giao thành công</span>
+              <span className="text-gray-600">Success rate</span>
               <span className="font-semibold text-gray-900">—</span>
             </div>
           </div>
@@ -135,8 +135,8 @@ const Dashboard = () => {
         <div className="bg-white border border-gray-200 rounded-xl p-4 space-y-3 lg:col-span-2">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-500">Lối tắt tính năng</p>
-              <p className="font-semibold text-gray-900">Bám theo API seller/admin</p>
+              <p className="text-sm text-gray-500">Shortcuts</p>
+              <p className="font-semibold text-gray-900">Mapped to seller/admin API</p>
             </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -153,7 +153,7 @@ const Dashboard = () => {
         </div>
 
         <div className="bg-white border border-gray-200 rounded-xl p-4 space-y-3">
-          <p className="text-sm text-gray-500">Hỗ trợ</p>
+          <p className="text-sm text-gray-500">Support</p>
           <div className="space-y-3">
             {supportCards.map((card) => (
               <div key={card.title} className="flex items-start gap-3">
