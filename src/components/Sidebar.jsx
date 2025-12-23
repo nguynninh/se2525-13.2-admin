@@ -1,15 +1,17 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { Home, ShoppingBag, Truck, MessageSquare, Store, PackageSearch, Settings, LogOut } from 'lucide-react';
 
 const Sidebar = () => {
   const menuItems = [
-    { icon: 'dashboard-grid', label: 'Dashboard', path: '/' },
-    { icon: '/icons/Buy-1.png', label: 'Product', path: '/product' },
-    { icon: '/icons/Ticket.png', label: 'Delivery', path: '/delivery' },
-    { icon: '/icons/sale.png', label: 'Discounts', path: '/discounts' },
-    { icon: '/icons/Notification.png', label: 'Notification', path: '/notifications' },
-    { icon: '/icons/settings.jpg', label: 'Settings', path: '/settings' },
-    { icon: '/icons/signout.png', label: 'Sign out', path: null },
+    { icon: Home, label: 'Dashboard', path: '/' },
+    { icon: ShoppingBag, label: 'Orders', path: '/orders' },
+    { icon: PackageSearch, label: 'Products', path: '/products' },
+    { icon: MessageSquare, label: 'Q&A', path: '/qa' },
+    { icon: Truck, label: 'Shipping', path: '/shipping' },
+    { icon: Store, label: 'Shop', path: '/shop' },
+    { icon: Settings, label: 'Settings', path: '/settings' },
+    { icon: LogOut, label: 'Sign out', path: null },
   ];
 
   const handleSignOut = () => {
@@ -32,7 +34,7 @@ const Sidebar = () => {
               >
                 <div className="flex items-center gap-3 min-w-0 flex-1 pr-2">
                   <div className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 bg-gray-100">
-                    <img src={item.icon} alt={item.label} className="w-5 h-5 object-contain" />
+                    {item.icon ? <item.icon className="w-5 h-5 text-gray-500" /> : null}
                   </div>
                   <span className="text-[15px] whitespace-nowrap font-medium">
                     {item.label}
@@ -57,16 +59,7 @@ const Sidebar = () => {
                       <div className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 ${
                         isActive ? 'bg-gray-200' : 'bg-gray-100'
                       }`}>
-                        {item.icon === 'dashboard-grid' ? (
-                          <svg className="w-5 h-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
-                            <rect x="3" y="3" width="6" height="6" rx="1.5" />
-                            <rect x="11" y="3" width="6" height="6" rx="1.5" />
-                            <rect x="3" y="11" width="6" height="6" rx="1.5" />
-                            <rect x="11" y="11" width="6" height="6" rx="1.5" />
-                          </svg>
-                        ) : (
-                          <img src={item.icon} alt={item.label} className="w-5 h-5 object-contain" />
-                        )}
+                        {item.icon ? <item.icon className="w-5 h-5 text-gray-500" /> : null}
                       </div>
                       <span className={`text-[15px] whitespace-nowrap ${isActive ? 'font-semibold' : 'font-medium'}`}>
                         {item.label}
