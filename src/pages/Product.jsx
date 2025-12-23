@@ -56,8 +56,8 @@ const Product = () => {
       <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
         <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
           <div>
-            <p className="text-sm text-gray-500">Sản phẩm</p>
-            <p className="text-lg font-semibold text-gray-900">Quản lý /products, /categories</p>
+              <p className="text-sm text-gray-500">Products</p>
+              <p className="text-lg font-semibold text-gray-900">Manage products and categories</p>
           </div>
           <div className="flex gap-2">
             <button className="flex items-center gap-2 px-3 py-2 text-sm font-semibold text-gray-700 border rounded-lg hover:bg-gray-50">
@@ -75,10 +75,10 @@ const Product = () => {
           <table className="min-w-full text-sm">
             <thead className="bg-gray-50 text-gray-700 text-xs uppercase border-b border-gray-100">
               <tr>
-                <th className="px-4 py-3 text-left font-semibold">Sản phẩm</th>
+                <th className="px-4 py-3 text-left font-semibold">Product</th>
                 <th className="px-4 py-3 text-left font-semibold">SKU</th>
                 <th className="px-4 py-3 text-left font-semibold">Giá</th>
-                <th className="px-4 py-3 text-left font-semibold">Tồn kho</th>
+                <th className="px-4 py-3 text-left font-semibold">Stock</th>
                 <th className="px-4 py-3 text-left font-semibold">Variants</th>
                 <th className="px-4 py-3 text-left font-semibold">Trạng thái</th>
               </tr>
@@ -87,7 +87,7 @@ const Product = () => {
               {products.length === 0 ? (
                 <tr>
                   <td colSpan="6" className="px-4 py-6 text-center text-sm text-gray-600">
-                    Chưa có sản phẩm.
+                    No products yet.
                   </td>
                 </tr>
               ) : (
@@ -115,8 +115,8 @@ const Product = () => {
         <div className="bg-white border border-gray-200 rounded-xl p-4">
           <div className="flex items-center justify-between mb-3">
             <div>
-              <p className="text-sm text-gray-500">Danh mục</p>
-              <p className="font-semibold text-gray-900">Quản lý category</p>
+              <p className="text-sm text-gray-500">Categories</p>
+              <p className="font-semibold text-gray-900">Manage categories</p>
             </div>
             <button className="flex items-center gap-1 px-3 py-2 text-xs font-semibold text-gray-700 border rounded-lg hover:bg-gray-50">
               <Plus className="w-4 h-4" />
@@ -126,7 +126,7 @@ const Product = () => {
           <div className="space-y-2">
             {categories.length === 0 ? (
               <div className="border border-dashed border-gray-200 rounded-lg p-3 text-sm text-gray-600">
-                Chưa có danh mục.
+                No categories yet.
               </div>
             ) : (
               categories.map((category) => (
@@ -142,8 +142,8 @@ const Product = () => {
         <div className="bg-white border border-gray-200 rounded-xl p-4 lg:col-span-2">
           <div className="flex items-center justify-between mb-3">
             <div>
-              <p className="text-sm text-gray-500">SKU & tồn kho</p>
-              <p className="font-semibold text-gray-900">Quản lý stocks</p>
+              <p className="text-sm text-gray-500">SKU & stock</p>
+              <p className="font-semibold text-gray-900">Manage stock</p>
             </div>
             <button className="flex items-center gap-1 px-3 py-2 text-xs font-semibold text-gray-700 border rounded-lg hover:bg-gray-50">
               <ClipboardList className="w-4 h-4" />
@@ -164,7 +164,7 @@ const Product = () => {
                 {variantMatrix.length === 0 ? (
                   <tr>
                     <td colSpan="4" className="px-3 py-4 text-center text-sm text-gray-600">
-                      Chưa có SKU/variant.
+                      No SKU/variant yet.
                     </td>
                   </tr>
                 ) : (
@@ -196,16 +196,16 @@ const Product = () => {
           </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
           <div className="border border-gray-100 rounded-lg p-3">
-            <p className="text-xs text-gray-500 mb-1">Ảnh sản phẩm</p>
-            <p className="text-sm font-semibold text-gray-900">Tải ảnh, chọn ảnh chính</p>
+              <p className="text-xs text-gray-500 mb-1">Product images</p>
+              <p className="text-sm font-semibold text-gray-900">Upload and pick main image</p>
           </div>
           <div className="border border-gray-100 rounded-lg p-3">
-            <p className="text-xs text-gray-500 mb-1">Thuộc tính</p>
-            <p className="text-sm font-semibold text-gray-900">Tạo variants</p>
+              <p className="text-xs text-gray-500 mb-1">Attributes</p>
+              <p className="text-sm font-semibold text-gray-900">Create variants</p>
           </div>
           <div className="border border-gray-100 rounded-lg p-3">
-            <p className="text-xs text-gray-500 mb-1">Giá trị thuộc tính</p>
-            <p className="text-sm font-semibold text-gray-900">Thêm options</p>
+              <p className="text-xs text-gray-500 mb-1">Attribute values</p>
+              <p className="text-sm font-semibold text-gray-900">Add options</p>
           </div>
         </div>
       </div>

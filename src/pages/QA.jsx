@@ -47,7 +47,7 @@ const QA = () => {
           <div className="space-y-3">
             {questions.length === 0 ? (
               <div className="border border-dashed border-gray-200 rounded-lg p-3 text-sm text-gray-600">
-                Chưa có câu hỏi.
+                No questions yet.
               </div>
             ) : (
               questions.map((item) => (
@@ -72,7 +72,7 @@ const QA = () => {
           <div className="space-y-3">
             {reviews.length === 0 ? (
               <div className="border border-dashed border-gray-200 rounded-lg p-3 text-sm text-gray-600">
-                Chưa có đánh giá.
+                No reviews yet.
               </div>
             ) : (
               reviews.map((item) => (
