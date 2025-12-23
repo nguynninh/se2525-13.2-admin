@@ -4,30 +4,27 @@ import Sidebar from './components/Sidebar';
 import Header from './components/Header';
 import Dashboard from './pages/Dashboard';
 import Product from './pages/Product';
-import AddProduct from './pages/AddProduct';
-import AddCategory from './pages/AddCategory';
-import Delivery from './pages/Delivery';
-import Notifications from './pages/Notification';
+import Orders from './pages/Orders';
+import QA from './pages/QA';
+import Shipping from './pages/Shipping';
+import Shop from './pages/Shop';
 import Settings from './pages/Settings';
-import Discount from './pages/Discount';
 
 const AppContent = () => {
   const location = useLocation();
   let title = 'Dashboard';
-  if (location.pathname === '/product') {
-    title = 'Product';
-  } else if (location.pathname === '/add-product') {
-    title = 'Add Product';
-  } else if (location.pathname === '/delivery') {
-    title = 'Delivery';
-  } else if (location.pathname === '/add-category') {
-    title = 'Add Category';
-  } else if (location.pathname === '/notifications') {
-    title = 'Notifications';
+  if (location.pathname === '/products' || location.pathname === '/product') {
+    title = 'Products';
+  } else if (location.pathname === '/orders') {
+    title = 'Orders';
+  } else if (location.pathname === '/qa') {
+    title = 'Q&A';
+  } else if (location.pathname === '/shipping') {
+    title = 'Shipping';
+  } else if (location.pathname === '/shop') {
+    title = 'Shop';
   } else if (location.pathname === '/settings') {
     title = 'Settings';
-  } else if (location.pathname === '/discounts') {
-    title = 'Discount Programs';
   }
 
   return (
@@ -38,13 +35,13 @@ const AppContent = () => {
         <main className="flex-1 overflow-y-auto p-3 lg:p-5 min-w-0 bg-content-bg">
           <Routes>
             <Route path="/" element={<Dashboard />} />
-          <Route path="/product" element={<Product />} />
-          <Route path="/add-product" element={<AddProduct />} />
-          <Route path="/add-category" element={<AddCategory />} />
-          <Route path="/delivery" element={<Delivery />} />
-          <Route path="/notifications" element={<Notifications />} />
-          <Route path="/settings" element={<Settings />} />
-          <Route path="/discounts" element={<Discount />} />
+            <Route path="/products" element={<Product />} />
+            <Route path="/product" element={<Product />} />
+            <Route path="/orders" element={<Orders />} />
+            <Route path="/qa" element={<QA />} />
+            <Route path="/shipping" element={<Shipping />} />
+            <Route path="/shop" element={<Shop />} />
+            <Route path="/settings" element={<Settings />} />
           </Routes>
         </main>
       </div>
