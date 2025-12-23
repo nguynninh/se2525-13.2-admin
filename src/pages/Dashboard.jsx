@@ -136,7 +136,6 @@ const Dashboard = () => {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-gray-500">Shortcuts</p>
-              <p className="font-semibold text-gray-900">Mapped to seller/admin API</p>
             </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">

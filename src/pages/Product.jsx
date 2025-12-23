@@ -10,9 +10,7 @@ const statusStyles = {
 
 const Product = () => {
   const products = [];
-
   const categories = [];
-
   const variantMatrix = [];
 
   return (
@@ -24,8 +22,8 @@ const Product = () => {
               <Package className="w-5 h-5" />
             </div>
             <div>
-              <p className="text-sm text-gray-500">Tổng sản phẩm</p>
-              <p className="text-xl font-semibold text-gray-900">—</p>
+              <p className="text-sm text-gray-500">Total products</p>
+              <p className="text-xl font-semibold text-gray-900">N/A</p>
             </div>
           </div>
         </div>
@@ -35,8 +33,8 @@ const Product = () => {
               <Layers className="w-5 h-5" />
             </div>
             <div>
-              <p className="text-sm text-gray-500">Danh mục</p>
-              <p className="text-xl font-semibold text-gray-900">—</p>
+              <p className="text-sm text-gray-500">Categories</p>
+              <p className="text-xl font-semibold text-gray-900">N/A</p>
             </div>
           </div>
         </div>
@@ -46,8 +44,8 @@ const Product = () => {
               <Sparkles className="w-5 h-5" />
             </div>
             <div>
-              <p className="text-sm text-gray-500">Sản phẩm nổi bật</p>
-              <p className="text-xl font-semibold text-gray-900">—</p>
+              <p className="text-sm text-gray-500">Featured products</p>
+              <p className="text-xl font-semibold text-gray-900">N/A</p>
             </div>
           </div>
         </div>
@@ -56,17 +54,17 @@ const Product = () => {
       <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
         <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
           <div>
-              <p className="text-sm text-gray-500">Products</p>
-              <p className="text-lg font-semibold text-gray-900">Manage products and categories</p>
+            <p className="text-sm text-gray-500">Products</p>
+            <p className="text-lg font-semibold text-gray-900">Manage products and categories</p>
           </div>
           <div className="flex gap-2">
             <button className="flex items-center gap-2 px-3 py-2 text-sm font-semibold text-gray-700 border rounded-lg hover:bg-gray-50">
               <Plus className="w-4 h-4" />
-              Thêm sản phẩm
+              Add product
             </button>
             <button className="flex items-center gap-2 px-3 py-2 text-sm font-semibold text-gray-700 border rounded-lg hover:bg-gray-50">
               <Layers className="w-4 h-4" />
-              Thêm danh mục
+              Add category
             </button>
           </div>
         </div>
@@ -77,10 +75,10 @@ const Product = () => {
               <tr>
                 <th className="px-4 py-3 text-left font-semibold">Product</th>
                 <th className="px-4 py-3 text-left font-semibold">SKU</th>
-                <th className="px-4 py-3 text-left font-semibold">Giá</th>
+                <th className="px-4 py-3 text-left font-semibold">Price</th>
                 <th className="px-4 py-3 text-left font-semibold">Stock</th>
                 <th className="px-4 py-3 text-left font-semibold">Variants</th>
-                <th className="px-4 py-3 text-left font-semibold">Trạng thái</th>
+                <th className="px-4 py-3 text-left font-semibold">Status</th>
               </tr>
             </thead>
             <tbody>
@@ -120,7 +118,7 @@ const Product = () => {
             </div>
             <button className="flex items-center gap-1 px-3 py-2 text-xs font-semibold text-gray-700 border rounded-lg hover:bg-gray-50">
               <Plus className="w-4 h-4" />
-              Thêm
+              Add
             </button>
           </div>
           <div className="space-y-2">
@@ -132,7 +130,7 @@ const Product = () => {
               categories.map((category) => (
                 <div key={category.name} className="flex items-center justify-between border border-gray-100 rounded-lg px-3 py-2">
                   <span className="font-semibold text-gray-900">{category.name}</span>
-                  <span className="text-sm text-gray-600">{category.count} sản phẩm</span>
+                  <span className="text-sm text-gray-600">{category.count} products</span>
                 </div>
               ))
             )}
@@ -147,7 +145,7 @@ const Product = () => {
             </div>
             <button className="flex items-center gap-1 px-3 py-2 text-xs font-semibold text-gray-700 border rounded-lg hover:bg-gray-50">
               <ClipboardList className="w-4 h-4" />
-              Cập nhật tồn
+              Update stock
             </button>
           </div>
           <div className="overflow-x-auto">
@@ -155,9 +153,9 @@ const Product = () => {
               <thead className="bg-gray-50 text-gray-700 text-xs uppercase border-b border-gray-100">
                 <tr>
                   <th className="px-3 py-2 text-left font-semibold">SKU</th>
-                  <th className="px-3 py-2 text-left font-semibold">Thuộc tính</th>
-                  <th className="px-3 py-2 text-left font-semibold">Tồn kho</th>
-                  <th className="px-3 py-2 text-left font-semibold">Giá</th>
+                  <th className="px-3 py-2 text-left font-semibold">Attributes</th>
+                  <th className="px-3 py-2 text-left font-semibold">Stock</th>
+                  <th className="px-3 py-2 text-left font-semibold">Price</th>
                 </tr>
               </thead>
               <tbody>
@@ -184,28 +182,28 @@ const Product = () => {
       </div>
 
       <div className="bg-white border border-gray-200 rounded-xl p-4">
-          <div className="flex items-center justify-between mb-3">
-            <div>
-              <p className="text-sm text-gray-500">Shop highlight</p>
-              <p className="font-semibold text-gray-900">Kết nối với shop / seller</p>
-            </div>
-            <button className="flex items-center gap-2 px-3 py-2 text-xs font-semibold text-gray-700 border rounded-lg hover:bg-gray-50">
-              <Store className="w-4 h-4" />
-              Chỉnh shop
-            </button>
+        <div className="flex items-center justify-between mb-3">
+          <div>
+            <p className="text-sm text-gray-500">Shop highlight</p>
+            <p className="font-semibold text-gray-900">Connect to shop / seller</p>
           </div>
+          <button className="flex items-center gap-2 px-3 py-2 text-xs font-semibold text-gray-700 border rounded-lg hover:bg-gray-50">
+            <Store className="w-4 h-4" />
+            Edit shop
+          </button>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
           <div className="border border-gray-100 rounded-lg p-3">
-              <p className="text-xs text-gray-500 mb-1">Product images</p>
-              <p className="text-sm font-semibold text-gray-900">Upload and pick main image</p>
+            <p className="text-xs text-gray-500 mb-1">Product images</p>
+            <p className="text-sm font-semibold text-gray-900">Upload and pick main image</p>
           </div>
           <div className="border border-gray-100 rounded-lg p-3">
-              <p className="text-xs text-gray-500 mb-1">Attributes</p>
-              <p className="text-sm font-semibold text-gray-900">Create variants</p>
+            <p className="text-xs text-gray-500 mb-1">Attributes</p>
+            <p className="text-sm font-semibold text-gray-900">Create variants</p>
           </div>
           <div className="border border-gray-100 rounded-lg p-3">
-              <p className="text-xs text-gray-500 mb-1">Attribute values</p>
-              <p className="text-sm font-semibold text-gray-900">Add options</p>
+            <p className="text-xs text-gray-500 mb-1">Attribute values</p>
+            <p className="text-sm font-semibold text-gray-900">Add options</p>
           </div>
         </div>
       </div>

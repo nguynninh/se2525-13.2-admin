@@ -3,9 +3,7 @@ import { Truck, Navigation, Map, Edit } from 'lucide-react';
 
 const Shipping = () => {
   const shipments = [];
-
   const rates = [];
-
   const addresses = [];
 
   const statusBadge = (status) => {
@@ -29,22 +27,22 @@ const Shipping = () => {
         </div>
         <div className="flex-1">
           <p className="text-sm text-gray-500">Shipments & Rates</p>
-          <p className="text-lg font-semibold text-gray-900">Quản lý vận chuyển</p>
+          <p className="text-lg font-semibold text-gray-900">Shipping management</p>
         </div>
-        <button className="text-sm font-semibold text-white bg-gray-900 px-3 py-2 rounded-lg">Tạo shipment</button>
+        <button className="text-sm font-semibold text-white bg-gray-900 px-3 py-2 rounded-lg">Create shipment</button>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         <div className="bg-white border border-gray-200 rounded-xl p-4 lg:col-span-2">
           <div className="flex items-center justify-between mb-3">
-            <p className="font-semibold text-gray-900">Danh sách shipment</p>
-            <span className="text-xs text-gray-500">Theo đơn hàng</span>
+            <p className="font-semibold text-gray-900">Shipment list</p>
+            <span className="text-xs text-gray-500">By order</span>
           </div>
           <div className="overflow-x-auto">
             <table className="min-w-full text-sm">
               <thead className="bg-gray-50 text-gray-700 text-xs uppercase border-b border-gray-100">
                 <tr>
-                  <th className="px-3 py-2 text-left font-semibold">Mã</th>
+                  <th className="px-3 py-2 text-left font-semibold">Code</th>
                   <th className="px-3 py-2 text-left font-semibold">Order</th>
                   <th className="px-3 py-2 text-left font-semibold">Carrier</th>
                   <th className="px-3 py-2 text-left font-semibold">Status</th>
@@ -77,12 +75,12 @@ const Shipping = () => {
         <div className="bg-white border border-gray-200 rounded-xl p-4">
           <div className="flex items-center justify-between mb-3">
             <div>
-              <p className="font-semibold text-gray-900">Phí vận chuyển</p>
-              <p className="text-xs text-gray-500">Quản lý cấu hình phí</p>
+              <p className="font-semibold text-gray-900">Shipping rates</p>
+              <p className="text-xs text-gray-500">Manage rate settings</p>
             </div>
             <button className="text-sm font-semibold text-gray-700 border px-3 py-2 rounded-lg hover:bg-gray-50 flex items-center gap-1">
               <Edit className="w-4 h-4" />
-              Sửa
+              Edit
             </button>
           </div>
           <div className="space-y-2">
@@ -112,8 +110,8 @@ const Shipping = () => {
               <Navigation className="w-4 h-4 text-gray-800" />
             </div>
             <div>
-              <p className="text-sm font-semibold text-gray-900">Địa chỉ giao hàng</p>
-              <p className="text-xs text-gray-500">Quản lý địa chỉ</p>
+              <p className="text-sm font-semibold text-gray-900">Shipping addresses</p>
+              <p className="text-xs text-gray-500">Manage saved addresses</p>
             </div>
           </div>
           <div className="space-y-2">
@@ -124,9 +122,15 @@ const Shipping = () => {
             ) : (
               addresses.map((addr) => (
                 <div key={addr.address} className="border border-gray-100 rounded-lg p-3 text-sm">
-                  <p className="font-semibold text-gray-900">{addr.receiver} ({addr.phone})</p>
+                  <p className="font-semibold text-gray-900">
+                    {addr.receiver} ({addr.phone})
+                  </p>
                   <p className="text-gray-700">{addr.address}</p>
-                  {addr.default && <span className="text-xs font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full inline-block mt-1">Default</span>}
+                  {addr.default && (
+                    <span className="text-xs font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full inline-block mt-1">
+                      Default
+                    </span>
+                  )}
                 </div>
               ))
             )}
@@ -139,13 +143,12 @@ const Shipping = () => {
               <Map className="w-4 h-4 text-gray-800" />
             </div>
             <div>
-              <p className="text-sm font-semibold text-gray-900">Địa lý</p>
-              <p className="text-xs text-gray-500">Danh sách tỉnh/thành, quận/huyện</p>
+              <p className="text-sm font-semibold text-gray-900">Locations</p>
+              <p className="text-xs text-gray-500">Provinces and districts</p>
             </div>
           </div>
           <div className="text-sm text-gray-700 space-y-1">
-            <p>Hỗ trợ dropdown tỉnh/thành và quận/huyện cho form địa chỉ giao hàng.</p>
-            <p>Lưu ý cache dữ liệu địa lý để giảm số lần gọi API.</p>
+            <p>Use provinces/districts data to power address dropdowns for shipping forms.</p>
           </div>
         </div>
       </div>

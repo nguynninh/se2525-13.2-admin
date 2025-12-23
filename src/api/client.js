@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = (import.meta.env.VITE_API_URL || 'http://localhost:3001/api/v1').replace(/\/$/, '');
+const API_BASE_URL = (import.meta.env.VITE_API_URL || 'https://api.hiki.io.vn/api').replace(/\/$/, '');
 
 const getStoredToken = () => localStorage.getItem('accessToken') || localStorage.getItem('token');
 

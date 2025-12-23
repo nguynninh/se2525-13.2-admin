@@ -1,4 +1,5 @@
-import React, { useState, useRef } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
+import { createMyShop, getMyShop, updateMyShop } from "../api/seller";
 
 const Settings = () => {
   const [profile, setProfile] = useState({
@@ -13,6 +14,17 @@ const Settings = () => {
     marketing: false,
     system: false,
   });
+  const [shop, setShop] = useState({
+    name: "",
+    email: "",
+    address: "",
+    return_policy_url: "",
+  });
+  const [shopId, setShopId] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
   const avatarInitial = (profile.name || "?").slice(0, 1).toUpperCase();
 
   const handleProfileChange = (field, value) => {
@@ -25,8 +37,56 @@ const Settings = () => {
 
   const fileInputRef = useRef(null);
 
-  const saveAll = () => {
-    alert("Settings saved (demo).");
+  const loadShop = useCallback(async () => {
+    setLoading(true);
+    setError("");
+    try {
+      const data = await getMyShop();
+      if (data) {
+        setShop({
+          name: data.name || "",
+          email: data.email || data.contact_email || "",
+          address: data.address || data.location || "",
+          return_policy_url: data.return_policy_url || "",
+        });
+        setShopId(data.id || data._id || null);
+      }
+    } catch (err) {
+      setError(err.message || "Failed to load shop info.");
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    loadShop();
+  }, [loadShop]);
+
+  const saveAll = async () => {
+    setSaving(true);
+    setError("");
+    setMessage("");
+    try {
+      const payload = {
+        name: shop.name,
+        email: shop.email,
+        address: shop.address,
+        return_policy_url: shop.return_policy_url,
+      };
+      if (shopId) {
+        await updateMyShop(payload);
+        setMessage("Shop info saved.");
+      } else {
+        const created = await createMyShop(payload);
+        setShopId(created?.id || created?._id || null);
+        setMessage("Shop created.");
+      }
+      await loadShop();
+    } catch (err) {
+      setError(err.message || "Failed to save shop info.");
+    } finally {
+      setSaving(false);
+    }
   };
 
   return (
@@ -35,13 +95,26 @@ const Settings = () => {
         <div>
           <p className="text-sm text-gray-600">Manage your account and notifications.</p>
         </div>
-        <button
-          onClick={saveAll}
-          className="rounded-lg bg-gray-900 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-gray-800"
-        >
-          Save changes
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={loadShop}
+            className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-700 shadow-sm transition hover:bg-gray-50"
+            disabled={loading || saving}
+          >
+            {loading ? "Loading..." : "Reload"}
+          </button>
+          <button
+            onClick={saveAll}
+            className="rounded-lg bg-gray-900 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-gray-800 disabled:opacity-60"
+            disabled={saving}
+          >
+            {saving ? "Saving..." : "Save changes"}
+          </button>
+        </div>
       </div>
+
+      {error && <div className="rounded-lg border border-rose-200 bg-rose-50 px-4 py-2 text-sm text-rose-700">{error}</div>}
+      {message && <div className="rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-2 text-sm text-emerald-700">{message}</div>}
 
       <div className="grid gap-4 lg:grid-cols-3">
         {/* Profile */}
@@ -150,7 +223,8 @@ const Settings = () => {
               <label className="block text-sm font-medium text-gray-800">Store name</label>
               <input
                 type="text"
-                defaultValue=""
+                value={shop.name}
+                onChange={(e) => setShop((prev) => ({ ...prev, name: e.target.value }))}
                 placeholder="Store name"
                 className="mt-2 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-400"
               />
@@ -159,7 +233,8 @@ const Settings = () => {
               <label className="block text-sm font-medium text-gray-800">Contact email</label>
               <input
                 type="email"
-                defaultValue=""
+                value={shop.email}
+                onChange={(e) => setShop((prev) => ({ ...prev, email: e.target.value }))}
                 placeholder="you@example.com"
                 className="mt-2 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-400"
               />
@@ -168,7 +243,8 @@ const Settings = () => {
               <label className="block text-sm font-medium text-gray-800">Address</label>
               <input
                 type="text"
-                defaultValue=""
+                value={shop.address}
+                onChange={(e) => setShop((prev) => ({ ...prev, address: e.target.value }))}
                 placeholder="Enter store address"
                 className="mt-2 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-400"
               />
@@ -177,7 +253,8 @@ const Settings = () => {
               <label className="block text-sm font-medium text-gray-800">Return policy link</label>
               <input
                 type="text"
-                defaultValue=""
+                value={shop.return_policy_url}
+                onChange={(e) => setShop((prev) => ({ ...prev, return_policy_url: e.target.value }))}
                 placeholder="https://example.com/policy"
                 className="mt-2 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-400"
               />
