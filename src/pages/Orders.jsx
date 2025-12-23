@@ -1,5 +1,6 @@
-import React from 'react';
-import { CheckCircle, Clock, Truck, XCircle, Package2 } from 'lucide-react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { CheckCircle, Clock, Truck, XCircle, Package2, RefreshCcw, Check, X, Pencil } from 'lucide-react';
+import { confirmSellerOrder, getSellerOrders, rejectSellerOrder, updateSellerOrderDeliveryStatus } from '../api/seller';
 
 const statusStyles = {
   pending: 'bg-yellow-50 text-yellow-700 border-yellow-200',
@@ -18,10 +19,82 @@ const statusIcon = (status) => {
 };
 
 const Orders = () => {
-  const orders = [];
-  const statusCounters = [];
-  const shipments = [];
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [actionLoading, setActionLoading] = useState('');
+  const [actionMessage, setActionMessage] = useState('');
   const shippingRates = [];
+
+  const normalizeOrders = (payload) => {
+    if (Array.isArray(payload)) return payload;
+    if (Array.isArray(payload?.items)) return payload.items;
+    if (Array.isArray(payload?.data)) return payload.data;
+    return [];
+  };
+
+  const loadOrders = useCallback(async () => {
+    setLoading(true);
+    setError('');
+    setActionMessage('');
+    try {
+      const data = await getSellerOrders();
+      setOrders(normalizeOrders(data));
+    } catch (err) {
+      setError(err.message || 'Unable to load orders.');
+      setOrders([]);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    loadOrders();
+  }, [loadOrders]);
+
+  const runAction = async (fn, orderId, successMsg) => {
+    setActionLoading(orderId);
+    setError('');
+    setActionMessage('');
+    try {
+      await fn();
+      await loadOrders();
+      setActionMessage(successMsg);
+    } catch (err) {
+      setError(err.message || 'Action failed.');
+    } finally {
+      setActionLoading('');
+    }
+  };
+
+  const handleConfirm = (orderId) => {
+    runAction(() => confirmSellerOrder(orderId), orderId, 'Order confirmed.');
+  };
+
+  const handleReject = (orderId) => {
+    const reason = window.prompt('Enter rejection reason (optional):', '');
+    runAction(() => rejectSellerOrder(orderId, reason ? { reason } : {}), orderId, 'Order rejected.');
+  };
+
+  const handleUpdateStatus = (orderId) => {
+    const nextStatus = window.prompt('Enter delivery status (e.g. shipping, completed, cancelled):', '');
+    if (!nextStatus) return;
+    runAction(() => updateSellerOrderDeliveryStatus(orderId, { status: nextStatus }), orderId, 'Status updated.');
+  };
+
+  const statusCounters = useMemo(() => {
+    const counters = orders.reduce((acc, order) => {
+      const key = order.status || 'pending';
+      acc[key] = (acc[key] || 0) + 1;
+      return acc;
+    }, {});
+
+    return Object.entries(counters).map(([status, count]) => ({
+      status,
+      label: status.charAt(0).toUpperCase() + status.slice(1),
+      value: count,
+    }));
+  }, [orders]);
 
   return (
     <div className="space-y-4">
@@ -34,7 +107,7 @@ const Orders = () => {
           statusCounters.map((item) => (
             <div
               key={item.label}
-              className={`border rounded-xl px-4 py-3 flex items-center gap-3 ${statusStyles[item.status]}`}
+              className={`border rounded-xl px-4 py-3 flex items-center gap-3 ${statusStyles[item.status] || 'border bg-gray-50 text-gray-700'}`}
             >
               <div className="w-10 h-10 rounded-lg bg-white/60 grid place-items-center">
                 {statusIcon(item.status)}
@@ -56,14 +129,27 @@ const Orders = () => {
               <p className="text-lg font-semibold text-gray-900">Seller order pipeline</p>
             </div>
             <div className="flex gap-2">
-              <button className="px-3 py-2 text-sm font-medium text-gray-700 border rounded-lg hover:bg-gray-50">
-                Filter
-              </button>
-              <button className="px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg">
-                Update status
+              <button
+                onClick={loadOrders}
+                className="px-3 py-2 text-sm font-medium text-gray-700 border rounded-lg hover:bg-gray-50 flex items-center gap-2"
+                disabled={loading}
+              >
+                <RefreshCcw className="w-4 h-4" />
+                {loading ? 'Refreshing...' : 'Refresh'}
               </button>
             </div>
           </div>
+
+          {error && (
+            <div className="px-4 py-3 text-sm text-rose-700 bg-rose-50 border-b border-rose-100">
+              {error}
+            </div>
+          )}
+          {actionMessage && (
+            <div className="px-4 py-3 text-sm text-emerald-700 bg-emerald-50 border-b border-emerald-100">
+              {actionMessage}
+            </div>
+          )}
 
           <div className="overflow-x-auto">
             <table className="min-w-full text-sm">
@@ -75,10 +161,17 @@ const Orders = () => {
                   <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600">Payment</th>
                   <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600">Status</th>
                   <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600">Updated</th>
+                  <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600">Actions</th>
                 </tr>
               </thead>
               <tbody>
-                {orders.length === 0 ? (
+                {loading ? (
+                  <tr>
+                    <td colSpan="6" className="px-4 py-6 text-center text-sm text-gray-600">
+                      Loading orders...
+                    </td>
+                  </tr>
+                ) : orders.length === 0 ? (
                   <tr>
                     <td colSpan="6" className="px-4 py-6 text-center text-sm text-gray-600">
                       No orders yet.
@@ -87,19 +180,44 @@ const Orders = () => {
                 ) : (
                   orders.map((order) => (
                     <tr key={order.id} className="border-b border-gray-100 hover:bg-gray-50 transition-colors">
-                      <td className="px-4 py-3 font-semibold text-gray-900">{order.id}</td>
-                      <td className="px-4 py-3 text-gray-800">{order.customer}</td>
-                      <td className="px-4 py-3 text-gray-900 font-semibold">{order.total}</td>
-                      <td className="px-4 py-3 text-gray-700">{order.payment}</td>
+                      <td className="px-4 py-3 font-semibold text-gray-900">{order.id || order.code}</td>
+                      <td className="px-4 py-3 text-gray-800">{order.customer?.name || order.customer_name || 'N/A'}</td>
+                      <td className="px-4 py-3 text-gray-900 font-semibold">{order.total || order.total_price || 'N/A'}</td>
+                      <td className="px-4 py-3 text-gray-700">{order.payment || order.payment_method || 'N/A'}</td>
                       <td className="px-4 py-3">
                         <span
-                          className={`inline-flex items-center gap-1 px-2.5 py-1 text-xs font-semibold rounded-full border ${statusStyles[order.status]}`}
+                          className={`inline-flex items-center gap-1 px-2.5 py-1 text-xs font-semibold rounded-full border ${statusStyles[order.status] || 'bg-gray-100 text-gray-700 border-gray-200'}`}
                         >
                           {statusIcon(order.status)}
                           {order.status}
                         </span>
                       </td>
-                      <td className="px-4 py-3 text-gray-700">{order.updatedAt}</td>
+                      <td className="px-4 py-3 text-gray-700">{order.updatedAt || order.updated_at || 'N/A'}</td>
+                      <td className="px-4 py-3 text-gray-700">
+                        <div className="flex flex-wrap gap-2">
+                          <button
+                            onClick={() => handleConfirm(order.id || order.code)}
+                            className="inline-flex items-center gap-1 rounded-lg border border-emerald-200 bg-emerald-50 px-2 py-1 text-xs font-semibold text-emerald-700 hover:bg-emerald-100 disabled:opacity-60"
+                            disabled={!!actionLoading}
+                          >
+                            <Check className="w-3 h-3" /> Confirm
+                          </button>
+                          <button
+                            onClick={() => handleReject(order.id || order.code)}
+                            className="inline-flex items-center gap-1 rounded-lg border border-rose-200 bg-rose-50 px-2 py-1 text-xs font-semibold text-rose-700 hover:bg-rose-100 disabled:opacity-60"
+                            disabled={!!actionLoading}
+                          >
+                            <X className="w-3 h-3" /> Reject
+                          </button>
+                          <button
+                            onClick={() => handleUpdateStatus(order.id || order.code)}
+                            className="inline-flex items-center gap-1 rounded-lg border border-gray-200 bg-white px-2 py-1 text-xs font-semibold text-gray-700 hover:bg-gray-50 disabled:opacity-60"
+                            disabled={!!actionLoading}
+                          >
+                            <Pencil className="w-3 h-3" /> Update status
+                          </button>
+                        </div>
+                      </td>
                     </tr>
                   ))
                 )}
@@ -109,37 +227,6 @@ const Orders = () => {
         </div>
 
         <div className="space-y-4">
-          <div className="bg-white border border-gray-200 rounded-xl p-4">
-            <div className="flex items-center justify-between mb-3">
-              <div>
-                <p className="text-sm text-gray-500">Shipments</p>
-                <p className="font-semibold text-gray-900">Admin / Seller tracking</p>
-              </div>
-              <button className="text-sm font-semibold text-gray-700 hover:text-gray-900">Create</button>
-            </div>
-            <div className="space-y-3">
-              {shipments.length === 0 ? (
-                <div className="border border-dashed border-gray-200 rounded-lg p-3 text-sm text-gray-600">
-                  No shipments yet.
-                </div>
-              ) : (
-                shipments.map((shipment) => (
-                  <div key={shipment.id} className="border border-gray-100 rounded-lg px-3 py-2">
-                    <div className="flex items-center justify-between">
-                      <p className="font-semibold text-gray-900">{shipment.id}</p>
-                      <span className={`text-xs font-semibold px-2 py-1 rounded-full border ${statusStyles[shipment.status]}`}>
-                        {shipment.status}
-                      </span>
-                    </div>
-                    <p className="text-xs text-gray-500">Order: {shipment.orderId}</p>
-                    <p className="text-xs text-gray-500">Carrier: {shipment.carrier}</p>
-                    <p className="text-xs text-gray-500">ETA: {shipment.eta}</p>
-                  </div>
-                ))
-              )}
-            </div>
-          </div>
-
           <div className="bg-white border border-gray-200 rounded-xl p-4">
             <div className="flex items-center justify-between mb-3">
               <p className="font-semibold text-gray-900">Shipping rates</p>
